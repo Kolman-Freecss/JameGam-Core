@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterInputs))]
 public class PlayerBehaviour : MonoBehaviour
 {
     Rigidbody2D rB;
@@ -8,9 +9,11 @@ public class PlayerBehaviour : MonoBehaviour
     
     private CharacterInputs _input;
     private Animator myAnimator;
-
+    private bool isAlive = true;
+    
     void Start()
     {
+        SubscribeToDelegatesAndUpdateValues();
         GetReferences();    
     }
 
@@ -20,13 +23,27 @@ public class PlayerBehaviour : MonoBehaviour
         rB = GetComponent<Rigidbody2D>();
         //myAnimator = GetComponent<Animator>();
     }
+    
+    private void SubscribeToDelegatesAndUpdateValues()
+    {
+        GameManager.Instance.OnGameOver += Die;
+    }
 
     void Update()
     {
+        if (!isAlive) { return; }
         Run();
         FlipSprite();
     }
 
+    void Die()
+    {
+        if (!GameManager.Instance.isGameOver) { return; }
+        isAlive = false;
+        // myAnimator.SetTrigger("Die");
+        Debug.Log("Player is dead");
+    }
+    
     void Run()
     {
         Vector2 playerVelocity = new Vector2(_input.move.x * speed, _input.move.y * speed);
