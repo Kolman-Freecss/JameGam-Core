@@ -5,19 +5,25 @@ public class PlayerBehaviour : MonoBehaviour
 {
     Rigidbody2D rB;
     Vector2 inputMovement;
-    [SerializeField] float speed = 10;
+    [SerializeField] float speed = 20f;
+    private float _runSpeed = 40f; 
+        
     SpriteRenderer spriteRend;
 
     private bool _hasAnimator;
     private CharacterInputs _input;
+    public CharacterInputs Inputs => _input;
     private Animator _animator;
     private bool isAlive = true;
     
     // Animation IDs
     private int _animAttackID;
     private int _animDeathID;
+    private int _animWalkID;
     private int _animRunID;
     private int _animRightClickID;
+
+    #region InitData
 
     void Start()
     {
@@ -47,8 +53,11 @@ public class PlayerBehaviour : MonoBehaviour
         _animDeathID = Animator.StringToHash("Death");
         _animRunID = Animator.StringToHash("Run");
         _animRightClickID = Animator.StringToHash("RightClick");
+        _animWalkID = Animator.StringToHash("Walk");
     }
 
+    #endregion
+    
     void Update()
     {
         if (!isAlive)
@@ -59,6 +68,11 @@ public class PlayerBehaviour : MonoBehaviour
         Run();
         FlipSprite();
         Attack();
+    }
+    
+    private void FixedUpdate()
+    {
+        rB.AddRelativeForce(new Vector2(inputMovement.x * speed, inputMovement.y * speed), ForceMode2D.Impulse);
     }
 
     void Attack()
@@ -98,10 +112,18 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Run()
     {
-        Vector2 playerVelocity = new Vector2(_input.move.x * speed, _input.move.y * speed);
+        // Multiply by _runSpeed to make the player run
+        float targetSpeed = _input.sprint ? _runSpeed : speed;
+        if (_hasAnimator)
+        {
+            _animator.SetBool(_animWalkID, false);
+            _animator.SetBool(_animRunID, false);
+        }
+        
+        Vector2 playerVelocity = new Vector2(_input.move.x * targetSpeed, _input.move.y * targetSpeed);
         rB.velocity = playerVelocity;
 
-        bool playerHasHorizontalSpeed = Mathf.Abs(rB.velocity.x) > Mathf.Epsilon;
+        //bool playerHasHorizontalSpeed = Mathf.Abs(rB.velocity.x) > Mathf.Epsilon;
         //myAnimator.SetBool("isRunning", playerHasHorizontalSpeed);
     }
 
@@ -117,8 +139,5 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
-        rB.AddRelativeForce(new Vector2(inputMovement.x * speed, inputMovement.y * speed), ForceMode2D.Impulse);
-    }
+    
 }

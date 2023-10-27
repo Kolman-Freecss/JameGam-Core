@@ -28,12 +28,12 @@ public class CharacterInputs : MonoBehaviour
     
     public void OnLeftClick(InputValue value)
     {
-        leftClick = value.isPressed;
+        LeftClickInput(value.isPressed);
     }
     
     public void OnRightClick(InputValue value)
     {
-        rightClick = value.isPressed;
+        RightClickInput(value.isPressed);
     }
 
     public void MoveInput(Vector2 newMoveDirection)

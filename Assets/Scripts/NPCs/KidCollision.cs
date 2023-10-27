@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class KidCollision : MonoBehaviour
@@ -7,37 +6,41 @@ public class KidCollision : MonoBehaviour
     Rigidbody2D rB;
     Vector2 direccionColision;
     bool collides = false;
-    // Start is called before the first frame update
+
+    #region InitData
+
     void Start()
     {
         rB = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
+    #endregion
+
+
     private void FixedUpdate()
     {
-        Debug.Log(transform.position);
+        //Debug.Log(transform.position);
     }
-
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
+            Debug.Log("Trigger");
             direccionColision = transform.position - other.transform.position;
-            StartCoroutine(MoverContra(direccionColision));
+            StartCoroutine(flee(direccionColision));
         }
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-
+        Debug.Log("collision");
         direccionColision = transform.position - other.transform.position;
         Vector2 direccionMove = new Vector2(-direccionColision.x, direccionColision.y - direccionColision.x / 2);
-        StartCoroutine(MoverContra(direccionMove));
+        StartCoroutine(flee(direccionMove));
     }
 
-    IEnumerator MoverContra(Vector3 direccion)
+    IEnumerator flee(Vector3 direccion)
     {
         yield return new WaitForSeconds(0.2f); // Espera 300 milisegundos
 
@@ -46,9 +49,9 @@ public class KidCollision : MonoBehaviour
 
         while (Time.time - tiempoInicio < tiempoMovimiento)
         {
-            transform.Translate(direccion.normalized * 30 * Time.deltaTime); // Mueve el objeto en sentido contrario a la colisión
+            transform.Translate(direccion.normalized * 30 *
+                                Time.deltaTime); // Mueve el objeto en sentido contrario a la colisión
             yield return null; // Espera al siguiente frame
         }
     }
-
 }
