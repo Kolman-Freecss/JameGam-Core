@@ -1,6 +1,8 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +19,8 @@ public class GameManager : MonoBehaviour
     public delegate void PlayerDeath();
 
     public event PlayerDeath OnGameOver;
+    
+    [SerializeField] float levelLoadDelay = 1f;
 
     private void Awake()
     {
@@ -64,5 +68,25 @@ public class GameManager : MonoBehaviour
         Debug.Log("Game Over");
         isGameOver = true;
         OnGameOver?.Invoke();
+        ResetGameSession();
     }
+
+    public void AddScore()
+    {
+        meatScore++;
+    }
+    
+    void ResetGameSession()
+    {
+        StartCoroutine(LoadGameReset());
+    }
+
+    IEnumerator LoadGameReset()
+    {
+        yield return new WaitForSecondsRealtime(levelLoadDelay);
+        
+        SceneManager.LoadScene(0);
+        Destroy(gameObject);
+    }
+    
 }
