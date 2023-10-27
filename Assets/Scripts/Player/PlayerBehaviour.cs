@@ -6,6 +6,7 @@ public class PlayerBehaviour : MonoBehaviour
     Rigidbody2D rB;
     Vector2 inputMovement;
     [SerializeField] float speed = 10;
+    SpriteRenderer spriteRend;
     
     private CharacterInputs _input;
     private Animator myAnimator;
@@ -14,7 +15,8 @@ public class PlayerBehaviour : MonoBehaviour
     void Start()
     {
         SubscribeToDelegatesAndUpdateValues();
-        GetReferences();    
+        GetReferences();
+        spriteRend = GetComponent<SpriteRenderer>();
     }
 
     private void GetReferences()
@@ -55,10 +57,18 @@ public class PlayerBehaviour : MonoBehaviour
     
     void FlipSprite()
     {
-        bool playerHasHorizontalSpeed = Mathf.Abs(rB.velocity.x) > Mathf.Epsilon;
-        if (playerHasHorizontalSpeed)
+        //bool playerHasHorizontalSpeed = Mathf.Abs(rB.velocity.x) > Mathf.Epsilon;
+        //if (playerHasHorizontalSpeed)
+        //{
+        //    transform.localScale = new Vector2(Mathf.Sign(rB.velocity.x), 1f);
+        //}
+        if (_input.move.x < 0)
         {
-            transform.localScale = new Vector2(Mathf.Sign(rB.velocity.x), 1f);
+            spriteRend.flipX = true;
+        }
+        else if (_input.move.x > 0)
+        {
+            spriteRend.flipX = false;
         }
     }
 
