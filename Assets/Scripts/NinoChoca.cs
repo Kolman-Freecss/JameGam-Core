@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Limit : MonoBehaviour
+public class NinoChoca : MonoBehaviour
 {
     
 
@@ -13,17 +13,22 @@ public class Limit : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void FixedUpdate() {
+    private void FixedUpdate() 
+    {
         
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerEnter(Collider other)
+    {
 
-        if(other.tag == "Player"){
+        if (other.tag == "Player")
+        {
             //TODO: Hacer el movimiento al contrario del player
             float offset = other.contactOffset;
             Debug.Log(offset);
-        } else {
+        }
+        else
+        {
             //TODO: Hacer el movimiento al contrario de los obstaculos
 
         }
