@@ -2,7 +2,6 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,6 +23,8 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] float levelLoadDelay = 1f;
 
+    #region InitData
+
     private void Awake()
     {
         if (Instance == null)
@@ -44,6 +45,8 @@ public class GameManager : MonoBehaviour
         //timeText.text = timeToDeath.ToString();
        // meatText.text = meatScore.ToString();
     }
+
+    #endregion
 
     public void Update()
     {
