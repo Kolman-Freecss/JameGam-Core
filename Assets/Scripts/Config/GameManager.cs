@@ -13,8 +13,10 @@ public class GameManager : MonoBehaviour
 
     public bool isGameOver = false;
 
-    [SerializeField] TextMeshProUGUI timeText;
-    [SerializeField] TextMeshProUGUI meatText;
+   // [SerializeField] TextMeshProUGUI timeText;
+   // [SerializeField] TextMeshProUGUI meatText;
+
+    [SerializeField]private bool isPaused;
 
     public delegate void PlayerDeath();
 
@@ -39,8 +41,8 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         StartGame();
-        timeText.text = timeToDeath.ToString();
-        meatText.text = meatScore.ToString();
+        //timeText.text = timeToDeath.ToString();
+       // meatText.text = meatScore.ToString();
     }
 
     public void Update()
@@ -49,8 +51,8 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-        timeText.text = timeToDeath.ToString();
-        meatText.text = meatScore.ToString();
+       // timeText.text = timeToDeath.ToString();
+        //meatText.text = meatScore.ToString();
     }
 
     public void StartGame()
@@ -62,6 +64,7 @@ public class GameManager : MonoBehaviour
     {
         while (timeToDeath > 0)
         {
+         
             yield return new WaitForSeconds(1);
             timeToDeath--;
         }
@@ -79,6 +82,18 @@ public class GameManager : MonoBehaviour
     void ResetGameSession()
     {
         StartCoroutine(LoadGameReset());
+    }
+
+    public void PauseGame()
+    {
+        isPaused = true;
+        Time.timeScale = 0;
+    }
+
+    public void ResumeGame()
+    {
+        isPaused = false;
+        Time.timeScale = 1;
     }
 
     IEnumerator LoadGameReset()

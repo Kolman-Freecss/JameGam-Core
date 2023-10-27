@@ -341,6 +341,15 @@
             "id": "c52a378d-7cea-4fb9-a97c-ed29ffb5646f",
             "actions": [
                 {
+                    "name": "OpenMenu",
+                    "type": "Button",
+                    "id": "9f8c1dc1-dd7d-4fa2-b9c0-fe2b86d25eea",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Navigate",
                     "type": "PassThrough",
                     "id": "583ee334-3c2d-488e-9ba2-bf0d95638e37",
@@ -847,6 +856,17 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d1a7670b-3f39-4492-84d3-2a56643dc3fc",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "OpenMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
