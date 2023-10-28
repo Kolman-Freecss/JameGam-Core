@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.Assertions;
 
 [RequireComponent(typeof(CharacterInputs))]
 public class PlayerBehaviour : MonoBehaviour
 {
     [SerializeField] float speed = 20f;
+    public static PlayerBehaviour Instance { get; private set; }
     public CharacterInputs Inputs => _input;
     public SpriteRenderer spriteRend;
 
@@ -24,6 +26,21 @@ public class PlayerBehaviour : MonoBehaviour
 
     #region InitData
 
+    public void Awake()
+    {
+        Assert.IsNull(Instance, $"Multiple instances of {nameof(Instance)} detected. This should not happen.");
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+            Debug.Log("Player created");
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    
     void Start()
     {
         SubscribeToDelegatesAndUpdateValues();
