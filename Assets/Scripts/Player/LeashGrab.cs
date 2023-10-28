@@ -28,15 +28,9 @@ public class LeashGrab : MonoBehaviour
     
     private void GetReferences()
     {
-<<<<<<< HEAD
-        leash.SetActive(false);
-        _coll = leash.GetComponent<Collider2D>();
-        _player = FindObjectOfType<PlayerBehaviour>();   
-=======
         _coll = GetComponent<Collider2D>();
         _player = FindObjectOfType<PlayerBehaviour>();  
         _spriteRenderer = GetComponent<SpriteRenderer>();
->>>>>>> 38c8525 (WIP Material)
     }
 
     #endregion
