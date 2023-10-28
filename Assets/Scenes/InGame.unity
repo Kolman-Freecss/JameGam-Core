@@ -1023,6 +1023,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1329374888}
     m_Modifications:
+    - target: {fileID: 442914171868305911, guid: 93185ad990a15e941819b7e214c09e2d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1961402892865635812, guid: 93185ad990a15e941819b7e214c09e2d, type: 3}
       propertyPath: m_Constraints
       value: 4
@@ -3019,7 +3023,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSlider: {fileID: 299248720}
   soundEffectsSlider: {fileID: 223689331}
-  backgroundAudio: {fileID: 1103967626}
+  backgroundAudio: {fileID: 0}
   soundEffectsAudio: []
   buttonFirstSelected: {fileID: 0}
 --- !u!4 &279941164
@@ -14267,7 +14271,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 54171a0d20ab1474e99d5a0d8a0bb93b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
