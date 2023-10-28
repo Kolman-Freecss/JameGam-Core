@@ -21,7 +21,7 @@ public class LeashGrab : MonoBehaviour
     {
         leash.SetActive(false);
         _coll = leash.GetComponent<Collider2D>();
-        _player = FindObjectOfType<PlayerBehaviour>();       
+        _player = FindObjectOfType<PlayerBehaviour>();   
     }
 
     #endregion
@@ -30,7 +30,7 @@ public class LeashGrab : MonoBehaviour
     {
         _mousePos = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
         _angle = _mousePos.x / _mousePos.y;
-        _angle = Mathf.Atan2(_mousePos.x, _mousePos.y) * Mathf.Rad2Deg;
+        _angle = Mathf.Atan2(_mousePos.x, _mousePos.y) * Mathf.Rad2Deg; 
         if (_player.Inputs.rightClick && !_grabbing)
         {
             Debug.Log("right click grab");
