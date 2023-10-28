@@ -33,6 +33,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void GetReferences()
     {
+        _animator = GetComponent<Animator>();
         _hasAnimator = TryGetComponent(out _animator);
         _input = GetComponent<CharacterInputs>();
         rB = GetComponent<Rigidbody2D>();
@@ -56,7 +57,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
     #endregion
-    
+
     void Update()
     {
         if (!isAlive)
@@ -67,8 +68,18 @@ public class PlayerBehaviour : MonoBehaviour
         Run();
         FlipSprite();
         Attack();
+        if (_input.move.x != 0 || _input.move.y != 0)
+        {
+            Debug.Log("ANDA");
+            _animator.SetBool(_animWalkID, true);
+ 
+        }
+        else
+        {
+            Debug.Log("QUIETO");
+            _animator.SetBool(_animWalkID, false);
+        }
     }
-    
     private void FixedUpdate()
     {
         rB.AddRelativeForce(new Vector2(inputMovement.x * speed, inputMovement.y * speed), ForceMode2D.Impulse);
@@ -137,6 +148,4 @@ public class PlayerBehaviour : MonoBehaviour
             spriteRend.flipX = false;
         }
     }
-
-    
 }
