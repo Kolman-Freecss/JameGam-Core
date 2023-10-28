@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,9 @@ public class CharacterInputs : MonoBehaviour
     public bool sprint;
     public bool leftClick;
     public bool rightClick;
+    public bool escape;
+
+    public event Action<bool> OnEscapeTrigger;
 
     public void OnMove(InputValue value)
     {
@@ -35,6 +39,11 @@ public class CharacterInputs : MonoBehaviour
     {
         RightClickInput(value.isPressed);
     }
+    
+    public void OnEscape(InputValue value)
+    {
+        EscapeInput(value.isPressed);
+    }
 
     public void MoveInput(Vector2 newMoveDirection)
     {
@@ -59,6 +68,12 @@ public class CharacterInputs : MonoBehaviour
     public void RightClickInput(bool newRightClickState)
     {
         rightClick = newRightClickState;
+    }
+    
+    public void EscapeInput(bool newEscapeState)
+    {
+        escape = newEscapeState;
+        OnEscapeTrigger?.Invoke(escape);
     }
     
 }

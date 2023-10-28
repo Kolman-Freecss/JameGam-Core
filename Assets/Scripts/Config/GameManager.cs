@@ -6,23 +6,28 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    
+    [SerializeField] float levelLoadDelay = 1f;
 
     public int timeToDeath = 60;
     public int meatScore = 0;
-
     public bool isGameOver = false;
 
    // [SerializeField] TextMeshProUGUI timeText;
    // [SerializeField] TextMeshProUGUI meatText;
+   Coroutine _coroutineGameTimer;
 
-    [SerializeField]private bool isPaused;
+    private bool isPaused;
+    public bool IsPaused => isPaused;
+    
+    public delegate void PauseGame(bool paused);
+    
+    public static event PauseGame OnPauseGame;
 
     public delegate void PlayerDeath();
 
     public event PlayerDeath OnGameOver;
     
-    [SerializeField] float levelLoadDelay = 1f;
-
     #region InitData
 
     private void Awake()
@@ -42,8 +47,14 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         StartGame();
+        SubscribeToDelegatesAndUpdateValues();
         //timeText.text = timeToDeath.ToString();
        // meatText.text = meatScore.ToString();
+    }
+    
+    void SubscribeToDelegatesAndUpdateValues()
+    {
+        OnPauseGame += StopGame;
     }
 
     #endregion
@@ -60,8 +71,44 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        StartCoroutine(HandleGameOver());
+        _coroutineGameTimer = StartCoroutine(HandleGameOver());
     }
+
+    public void AddScore()
+    {
+        meatScore++;
+    }
+    
+    public void StopGame(bool paused)
+    {
+        if (paused)
+        {
+            StopCoroutine(_coroutineGameTimer);
+        } else
+        {
+            _coroutineGameTimer = StartCoroutine(HandleGameOver());
+        }
+    }
+    
+    void ResetGameSession()
+    {
+        StartCoroutine(LoadGameReset());
+    }
+
+    public void PauseGameEvent(bool paused)
+    {
+        isPaused = !paused;
+        if (isPaused)
+        {
+            Time.timeScale = 0;
+        } else
+        {
+            Time.timeScale = 1;
+        }
+        OnPauseGame?.Invoke(isPaused);
+    }
+
+    #region Events
 
     IEnumerator HandleGameOver()
     {
@@ -77,28 +124,6 @@ public class GameManager : MonoBehaviour
         ResetGameSession();
     }
 
-    public void AddScore()
-    {
-        meatScore++;
-    }
-    
-    void ResetGameSession()
-    {
-        StartCoroutine(LoadGameReset());
-    }
-
-    public void PauseGame()
-    {
-        isPaused = true;
-        Time.timeScale = 0;
-    }
-
-    public void ResumeGame()
-    {
-        isPaused = false;
-        Time.timeScale = 1;
-    }
-
     IEnumerator LoadGameReset()
     {
         yield return new WaitForSecondsRealtime(levelLoadDelay);
@@ -106,5 +131,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
         Destroy(gameObject);
     }
+
+    #endregion
     
 }
