@@ -77,4 +77,6 @@ public class AudioSettings : MonoBehaviour
             soundEffectsAudio[i].volume = soundEffectsSlider.value;
         }
     }
+
+
 }
