@@ -118,7 +118,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 _animator.SetBool(_animRightClickID, true);
             }
-            //Debug.Log("Right Click!");
+            Debug.Log("Right Click!");
         }
     }
 
