@@ -15,11 +15,11 @@ public class PoolKids : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.gameObject.SetActive(true);
+        
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Desactivado");
+        
     }
 }
