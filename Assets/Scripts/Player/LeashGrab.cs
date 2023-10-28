@@ -4,21 +4,21 @@ using UnityEngine.InputSystem;
 
 public class LeashGrab : MonoBehaviour
 {
-    [SerializeField] Transform _leashCenter;
+
+    public Transform leash;
     
     //Collider2D _coll;
     Vector2 _mousePos;
     float _angle;
     bool _zipping;
     PlayerBehaviour _player;
-    LineRenderer _lineRenderer;
     
-    private Vector3 zipLineDirection;
-    private Vector3 zipLineTargetPosition;
-    private float zipLineSpeed = 250f;
-    private float zipLineDistance = 5f;
-    private float zipLineMaxDistance = 20f;
-    private State state;
+    private Vector3 _zipLineDirection;
+    private Vector3 _zipLineTargetPosition;
+    private float _zipLineSpeed = 250f;
+    private float _zipLineDistance = 5f;
+    private float _zipLineMaxDistance = 20f;
+    private State _state;
 
     private enum State
     {
@@ -40,8 +40,7 @@ public class LeashGrab : MonoBehaviour
     private void GetReferences()
     {
         //_coll = GetComponent<Collider2D>();
-        _player = FindObjectOfType<PlayerBehaviour>();  
-        _lineRenderer = GetComponent<LineRenderer>();
+        _player = GetComponent<PlayerBehaviour>();  
     }
 
     #endregion
@@ -53,7 +52,7 @@ public class LeashGrab : MonoBehaviour
     
     void Grab()
     {
-        switch (state)
+        switch (_state)
         {
             case State.Normal:
                 HandleStartZip();
@@ -84,31 +83,48 @@ public class LeashGrab : MonoBehaviour
     {
         if (_player.Inputs.rightClick && !_zipping)
         {
-            zipLineTargetPosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            zipLineTargetPosition.z = 0;
-            zipLineDirection = (zipLineTargetPosition - _player.transform.position).normalized;
-            zipLineSpeed = 250f;
-            SetStateWebZipping();
+            _zipLineTargetPosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            _zipLineTargetPosition.z = 0;
+            _zipLineDirection = (_zipLineTargetPosition - _player.transform.position).normalized;
             
-            //TODO: Animation here
+            Transform leash = Instantiate(this.leash, _player.transform.position, Quaternion.identity);
+            Vector3 zipDirection = -(_zipLineTargetPosition - _player.transform.position).normalized;
+            leash.eulerAngles = new Vector3(0, 0, GetAngleFromVectorFloat(zipDirection));
+            leash.GetComponent<SpriteRenderer>().size = new Vector2(
+                Vector3.Distance(_player.transform.position, _zipLineTargetPosition),
+                leash.GetComponent<SpriteRenderer>().size.y
+                );
+            
+            // _zipLineSpeed = 250f;
+            // //TODO: Animation here _player.Anim.SetTrigger("WebZipping");
+            // SetStateWebZipping();
+            
         }
     }
     
+    private float GetAngleFromVectorFloat(Vector3 dir) {
+        float n = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        if (n < 0) n += 360;
+
+        return n;
+    }
+    
     private void HandleZippingSliding() {
-        zipLineSpeed -= zipLineSpeed * Time.deltaTime * 8f;
-        _player.transform.position += zipLineDirection * zipLineSpeed * Time.deltaTime;
+        _zipLineSpeed -= _zipLineSpeed * Time.deltaTime * 8f;
+        _player.transform.position += _zipLineDirection * _zipLineSpeed * Time.deltaTime;
         
-        if (zipLineSpeed <= 5f) {
+        if (_zipLineSpeed <= 5f) {
             SetStateNormal();
         }
     }
 
     void HandleZipping()
     {
-        _player.transform.position += zipLineDirection * zipLineSpeed * Time.deltaTime;
-        //_player.transform.position = zipLineDirection;// * Time.deltaTime;
-        if (Vector3.Distance(_player.transform.position, zipLineTargetPosition) <= zipLineMaxDistance)
+        _player.transform.position += _zipLineDirection * _zipLineSpeed * Time.deltaTime;
+        //_player.transform.position = _zipLineDirection;// * Time.deltaTime;
+        if (Vector3.Distance(_player.transform.position, _zipLineTargetPosition) <= _zipLineMaxDistance)
         {
+            //TODO: Animation here _player.Anim.SetTrigger("WebZippingSliding");
             SetStateWebZippingSliding();
         }
     }
@@ -116,19 +132,19 @@ public class LeashGrab : MonoBehaviour
     #region Getter & Setter
 
     private void SetStateNormal() {
-        state = State.Normal;
+        _state = State.Normal;
     }
     
     private void SetStateWebZippingStarting() {
-        state = State.WebZippingStarting;
+        _state = State.WebZippingStarting;
     }
     
     private void SetStateWebZipping() {
-        state = State.WebZipping;
+        _state = State.WebZipping;
     }
     
     private void SetStateWebZippingSliding() {
-        state = State.WebZippingSliding;
+        _state = State.WebZippingSliding;
     }
     
 
