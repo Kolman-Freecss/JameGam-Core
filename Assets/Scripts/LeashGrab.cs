@@ -17,7 +17,7 @@ public class LeashGrab : MonoBehaviour
     void Update()
     {
         mousePos = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-        angle = mousePos.x / mousePos.y;
+        //angle = mousePos.x / mousePos.y;
         angle = Mathf.Atan2(mousePos.x, mousePos.y) * Mathf.Rad2Deg;
         if (Input.GetMouseButtonDown(0) && !grabbing)
         {
