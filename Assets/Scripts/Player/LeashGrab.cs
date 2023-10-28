@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utils;
@@ -8,7 +7,6 @@ public class LeashGrab : MonoBehaviour
 
     public Transform leash;
     
-    //Collider2D _coll;
     Vector2 _mousePos;
     float _angle;
     bool _zipping;
@@ -21,6 +19,7 @@ public class LeashGrab : MonoBehaviour
     private float _zipLineMaxDistance = 20f;
     private State _state;
     public Transform leashInstance;
+    private Vector3 _zipPosition;
 
     private enum State
     {
@@ -36,7 +35,6 @@ public class LeashGrab : MonoBehaviour
     {
         GetReferences();
         SetStateNormal();
-        StopLeash();
     }
     
     private void GetReferences()
@@ -51,7 +49,9 @@ public class LeashGrab : MonoBehaviour
     {
         Grab();
     }
-    
+
+    #region Grab Logic
+
     void Grab()
     {
         switch (_state)
@@ -68,44 +68,47 @@ public class LeashGrab : MonoBehaviour
                 HandleZippingSliding();
                 break;
         }
-        // if (_player.Inputs.rightClick && !_zipping)
-        // {
-        //     // _mousePos = Input.mousePosition - Camera.main.WorldToScreenPoint(_leashCenter.position);
-        //     // _angle = Mathf.Atan2(_mousePos.x, _mousePos.y) * Mathf.Rad2Deg;
-        //     // Debug.Log("right click grab");
-        //     // _leashCenter.eulerAngles = new Vector3(0, 0, -_angle +90);
-        //     // Change the rotation of the leashCenter to the direction of the 
-        //     // Get data info from the mouse position and direction
-        //     Debug.Log("right click grab");
-        //     HandleStartZip();
-        //     HandleZipping();
-        //     StartLeash();
-        //     StartCoroutine(LeashGrabbing());
     }
 
     void HandleStartZip()
     {
         if (_player.Inputs.rightClick) // && !_zipping
         {
+            // Get positions
             _zipLineTargetPosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             _zipLineTargetPosition.z = 0;
             _zipLineDirection = (_zipLineTargetPosition - _player.transform.position).normalized;
+            _zipPosition = _player.transform.position;
             
+            // Instantiate zip at player position
             //TODO: Animation here _player.Anim.SetTrigger("WebZipping");
             leashInstance = Instantiate(this.leash, _player.transform.position, Quaternion.identity);
             Vector3 zipDirection = -(_zipLineTargetPosition - _player.transform.position).normalized;
             leashInstance.eulerAngles = new Vector3(0, 0, GetAngleFromVectorFloat(zipDirection));
             
-            SpriteRenderer leashSpriteRenderer = leashInstance.GetComponent<SpriteRenderer>();
-            Vector2 leashStart = new Vector2(0, leashSpriteRenderer.size.y);
-            Vector2 leashEnd = new Vector2(Vector3.Distance(_player.transform.position, _zipLineTargetPosition), leashSpriteRenderer.size.y);
-            leashSpriteRenderer.size = leashStart;
+            // Where to start the zip and where to end it 
+            Vector3 leashScale = leashInstance.localScale;
+            //SpriteRenderer leashSpriteRenderer = leashInstance.GetComponent<SpriteRenderer>();
+            Vector2 leashStart = new Vector2(0, leashScale.y);
+            Vector2 leashEnd = new Vector2(Vector3.Distance(_player.transform.position, _zipLineTargetPosition), leashScale.y);
+            // leashInstance.localScale = new Vector3(
+            //     Vector3.Distance(_zipPosition, _zipLineTargetPosition),
+            //     leashScale.y,
+            //     leashScale.z
+            // );
+            leashInstance.localScale = new Vector3(leashEnd.x, leashScale.y, leashScale.z);
+            // SpriteRenderer leashSpriteRenderer = leashInstance.GetComponent<SpriteRenderer>();
+            // Vector2 leashStart = new Vector2(0, leashSpriteRenderer.size.y);
+            // Vector2 leashEnd = new Vector2(Vector3.Distance(_player.transform.position, _zipLineTargetPosition), leashSpriteRenderer.size.y);
+            // leashSpriteRenderer.size = leashStart;
             float timeToReachTarget = 0f;
             
+            // Animate the leash growing
             FunctionUpdater.Create(() =>
             {
                 timeToReachTarget += Time.deltaTime * 8f;
-                leashSpriteRenderer.size = Vector2.Lerp(leashStart, leashEnd, timeToReachTarget);
+                //leashSpriteRenderer.size = Vector2.Lerp(leashStart, leashEnd, timeToReachTarget);
+                leashInstance.localScale = Vector3.Lerp(leashStart, leashEnd, timeToReachTarget);
                 if (timeToReachTarget >= 1f)
                 {
                     // Start zipping
@@ -133,7 +136,7 @@ public class LeashGrab : MonoBehaviour
     
     private void HandleZippingSliding() {
         _zipLineSpeed -= _zipLineSpeed * Time.deltaTime * 8f;
-        _player.transform.position += _zipLineDirection * _zipLineSpeed * Time.deltaTime;
+        // _player.transform.position += _zipLineDirection * _zipLineSpeed * Time.deltaTime;
         
         if (_zipLineSpeed <= 5f) {
             SetStateNormal();
@@ -142,26 +145,37 @@ public class LeashGrab : MonoBehaviour
 
     void HandleZipping()
     {
-        _player.transform.position += _zipLineDirection * _zipLineSpeed * Time.deltaTime;
+        //_player.transform.position += _zipLineDirection * _zipLineSpeed * Time.deltaTime;
+        _zipPosition += _zipLineDirection * _zipLineSpeed * Time.deltaTime;
         
-        leashInstance.position = _player.transform.position;
-        Vector3 zipDirection = -(_zipLineTargetPosition - _player.transform.position).normalized;
+        leashInstance.position = _zipPosition;
+        Vector3 zipDirection = -(_zipLineTargetPosition - _zipPosition).normalized;
         leashInstance.eulerAngles = new Vector3(0, 0, GetAngleFromVectorFloat(zipDirection));
         
-        SpriteRenderer leashSpriteRenderer = leashInstance.GetComponent<SpriteRenderer>();
-        leashSpriteRenderer.size = new Vector2(
-            Vector3.Distance(_player.transform.position, _zipLineTargetPosition),
-            leashSpriteRenderer.size.y
+        // SpriteRenderer leashSpriteRenderer = leashInstance.GetComponent<SpriteRenderer>();
+        // leashSpriteRenderer.size = new Vector2(
+        //     Vector3.Distance(_zipPosition, _zipLineTargetPosition),
+        //     leashSpriteRenderer.size.y
+        // );
+        Vector3 leashScale = leashInstance.localScale;
+        leashInstance.localScale = new Vector3(
+            Vector3.Distance(_zipPosition, _zipLineTargetPosition),
+            leashScale.y,
+            leashScale.z
         );
         
         //_player.transform.position = _zipLineDirection;// * Time.deltaTime;
-        if (Vector3.Distance(_player.transform.position, _zipLineTargetPosition) <= _zipLineMaxDistance)
+        if (Vector3.Distance(_zipPosition, _zipLineTargetPosition) <= _zipLineMaxDistance)
         {
             //TODO: Animation here _player.Anim.SetTrigger("WebZippingSliding");
             Destroy(leashInstance.gameObject);
             SetStateWebZippingSliding();
         }
     }
+
+    #endregion
+    
+    
 
     #region Getter & Setter
 
@@ -184,33 +198,4 @@ public class LeashGrab : MonoBehaviour
 
     #endregion
     
-    void StopLeash()
-    {
-        _zipping = false;
-        //_lineRenderer.enabled = false;
-        //_coll.enabled = false;
-    }
-    
-    void StartLeash()
-    {
-        _zipping = true;
-        //_lineRenderer.enabled = true;
-        //_coll.enabled = true;
-    }
-    
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        Debug.Log("collisionGrab");
-    }
-    
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("triggerGrab");
-    }
-    
-    IEnumerator LeashGrabbing()
-    {
-        yield return new WaitForSeconds(1);
-        StopLeash();
-    }
 }
