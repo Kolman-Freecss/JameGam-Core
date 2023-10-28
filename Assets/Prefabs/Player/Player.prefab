@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -781310201, guid: 49f29041bfe6a18419b0b1a3be9c04e6, type: 3}
+  m_Sprite: {fileID: 30403314, guid: 49f29041bfe6a18419b0b1a3be9c04e6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -245,6 +245,7 @@ MonoBehaviour:
   sprint: 0
   leftClick: 0
   rightClick: 0
+  escape: 0
 --- !u!114 &7141764642078917605
 MonoBehaviour:
   m_ObjectHideFlags: 0

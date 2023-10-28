@@ -10,7 +10,7 @@ public class DisplaySettings : MonoBehaviour
     [SerializeField]
     private Light sceneLight; //puede que luego se tenga que modificar en funcion de la ilu de la escena
 
-    [SerializeField] private GameObject toggle;
+    [SerializeField] private Toggle windowedToggle, bloodToggle;
     public bool blood = true;
     public bool windowed = true;
 
@@ -39,7 +39,9 @@ public class DisplaySettings : MonoBehaviour
 
     public void ToggleWindowed()
     {
-        Screen.fullScreen = !Screen.fullScreen;
+        SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
+        windowed = windowedToggle.isOn;
+        Screen.fullScreen = windowed;
     }
 
     public void UpdateBrightness()
@@ -49,6 +51,7 @@ public class DisplaySettings : MonoBehaviour
 
     public void ToogleBlood()
     {
+        blood = bloodToggle.isOn;
         SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
     }
 }
