@@ -87,13 +87,14 @@ public class PlayerBehaviour : MonoBehaviour
         Attack();
         if (_input.move.x != 0 || _input.move.y != 0)
         {
-            Debug.Log("ANDA");
+            
+            
             _animator.SetBool(_animWalkID, true);
  
         }
         else
         {
-            Debug.Log("QUIETO");
+            
             _animator.SetBool(_animWalkID, false);
         }
     }
