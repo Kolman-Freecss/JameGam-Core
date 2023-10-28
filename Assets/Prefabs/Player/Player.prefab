@@ -85,10 +85,10 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 8, y: 10.67}
+  m_Size: {x: 11.36, y: 9.44}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &1961402892865635812
@@ -155,7 +155,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 11.36, y: 9.44}
-    newSize: {x: 8, y: 10.67}
+    newSize: {x: 11.36, y: 9.44}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -245,6 +245,16 @@ MonoBehaviour:
   sprint: 0
   leftClick: 0
   rightClick: 0
+  escape: 0
+  escapeAction:
+    m_Name: Escape
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: dabd588d-fc9f-4e1d-8d55-3f02088f2f47
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!114 &7141764642078917605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,3 +268,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leash: {fileID: 5827158456854657965, guid: f85958bb04fa2064db7c809c8c012df0, type: 3}
+  leashInstance: {fileID: 0}

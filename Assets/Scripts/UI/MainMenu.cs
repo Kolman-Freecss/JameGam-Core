@@ -1,35 +1,69 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public static MainMenu Instance { get; private set; }
 
- 
+    #region InitData
+
+    private void Awake()
+    {
+        ManageSingleton();
+    }
+
+    void ManageSingleton()
+    {
+        if (Instance != null)
+        {
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
+    #endregion
 
     public void NewGame()
     {
-        SceneManager.LoadScene("InGame");
+        ButtonClick();
+        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler
+            .gameSceneName);
     }
 
     public void Options()
     {
-        SceneManager.LoadScene("Options");
+        ButtonClick();
+        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler
+            .optionsSceneName);
     }
 
-    public void Credits ()
+    public void Credits()
     {
-        SceneManager.LoadScene("Credits");
-    }
-
-    public void ExitGame()
-    {
-        Application.Quit();
+        ButtonClick();
+        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler
+            .creditsSceneName);
     }
 
     public void BackMainMenu()
     {
-        SceneManager.LoadScene("Intro");
+        ButtonClick();
+        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler
+            .defaultMainMenuSceneName);
     }
+
+    public void ExitGame()
+    {
+        ButtonClick();
+        Application.Quit();
+    }
+    
+    public void ButtonClick()
+    {
+        SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
+    }
+    
 }

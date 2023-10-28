@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 49f29041bfe6a18419b0b1a3be9c04e6
+guid: 6c59d2b2fbdd68645a82a70543241364
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 50
+  spritePixelsToUnits: 65
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,190 +110,190 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: zombiewalk_1
+      name: ninia3Idle
       rect:
         serializedVersion: 2
-        x: 617
-        y: 1106
-        width: 536
-        height: 472
+        x: 92
+        y: 1423
+        width: 359
+        height: 643
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf400bcffcaacbf49b6586c0105b99fd
-      internalID: 478107764
+      spriteID: a96254c271b226c42b1db86ff9868164
+      internalID: -448745336
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: zombiewalk_2
+      name: ninia3_1
       rect:
         serializedVersion: 2
-        x: 1249
-        y: 1106
-        width: 481
-        height: 464
+        x: 694
+        y: 1425
+        width: 372
+        height: 634
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 572e99282b2e7b24a98665a6c5316b9b
-      internalID: 1737517061
+      spriteID: 032a82715b726c54583d648aa0241137
+      internalID: -2096367810
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: zombiewalk_3
+      name: ninia3_2
       rect:
         serializedVersion: 2
-        x: 62
-        y: 553
-        width: 497
-        height: 499
+        x: 1240
+        y: 1426
+        width: 393
+        height: 626
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b69f7c04ca661d0439644e010786d381
-      internalID: 586759316
+      spriteID: 087f61cd31e44cb4f9bad93357e74eb0
+      internalID: 1260397629
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: zombiewalk_4
+      name: ninia3_3
       rect:
         serializedVersion: 2
-        x: 667
-        y: 529
-        width: 489
-        height: 509
+        x: 75
+        y: 747
+        width: 369
+        height: 628
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 141955c744918ae4a9fcdcb68d4b0a0b
-      internalID: -1823855237
+      spriteID: da54586379ae81c489fe690867472e5f
+      internalID: -1693069264
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: zombiewalk_5
+      name: ninia3_4
       rect:
         serializedVersion: 2
-        x: 1268
-        y: 544
-        width: 461
-        height: 534
+        x: 708
+        y: 733
+        width: 364
+        height: 636
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b87daee0c9d20274c9084fd1e4261acf
-      internalID: 867323425
+      spriteID: b0d6973c7bc2ab64398ca5b31e804d28
+      internalID: 2085402926
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: zombiewalk_6
+      name: ninia3_5
       rect:
         serializedVersion: 2
-        x: 49
-        y: 0
-        width: 462
-        height: 495
+        x: 1254
+        y: 747
+        width: 372
+        height: 625
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71fe018ff2e7aa140b6a269f07ae201a
-      internalID: 2055162436
+      spriteID: c5f9266e79c00e34cabfbf3f476aa5b5
+      internalID: -896943037
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: zombiewalk_7
+      name: ninia3_6
       rect:
         serializedVersion: 2
-        x: 638
-        y: 7
-        width: 476
-        height: 497
+        x: 76
+        y: 43
+        width: 381
+        height: 636
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34d81b391953400459762eb80067a2fb
-      internalID: 449324015
+      spriteID: 36c15f53f89809b47838c13db4617d0b
+      internalID: 952612840
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: zombiewalk_8
+      name: ninia3_7
       rect:
         serializedVersion: 2
-        x: 1237
-        y: 14
-        width: 484
-        height: 512
+        x: 690
+        y: 47
+        width: 372
+        height: 633
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 972b2e9ae06cfb54b8959b693a132951
-      internalID: -470064393
+      spriteID: 3a4cec89690fb0c4eaffa45feb6eea0e
+      internalID: 1725829033
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: zombieIdle
+      name: ninia3_8
       rect:
         serializedVersion: 2
-        x: 13
-        y: 1107
-        width: 568
-        height: 472
+        x: 1234
+        y: 48
+        width: 383
+        height: 629
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7878d17ed2d76024db70ab5351144f92
-      internalID: 30403314
+      spriteID: 248700288f1562749913ed584251a2f7
+      internalID: -1127707933
       vertices: []
       indices: 
       edges: []
@@ -301,7 +301,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 0926cb0b163ff2541b0756e95902830a
     internalID: 0
     vertices: []
     indices: 
@@ -309,15 +309,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      zombieIdle: 30403314
-      zombiewalk_1: 478107764
-      zombiewalk_2: 1737517061
-      zombiewalk_3: 586759316
-      zombiewalk_4: -1823855237
-      zombiewalk_5: 867323425
-      zombiewalk_6: 2055162436
-      zombiewalk_7: 449324015
-      zombiewalk_8: -470064393
+      ninia3Idle: -448745336
+      ninia3_1: -2096367810
+      ninia3_2: 1260397629
+      ninia3_3: -1693069264
+      ninia3_4: 2085402926
+      ninia3_5: -896943037
+      ninia3_6: 952612840
+      ninia3_7: 1725829033
+      ninia3_8: -1127707933
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

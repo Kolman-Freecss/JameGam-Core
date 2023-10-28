@@ -1,37 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class InGameMenu : MonoBehaviour
 {
     [SerializeField] private GameObject inGameMenu;
-
+    
+    #region InitData
 
     void Start()
     {
         inGameMenu.SetActive(false);
+        PlayerBehaviour.Instance.Inputs.OnEscapeTrigger += OnPressEscape;
     }
 
-    void Update()
+    #endregion
+    
+    void OnPressEscape(bool pressed)
     {
-        // Verifica si la tecla de escape se ha presionado
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (PlayerBehaviour.Instance.Inputs.escape)
         {
-            PauseUnpause();
+            PauseGame(GameManager.Instance.IsPaused);
         }
     }
 
-    public void PauseUnpause()
+    public void PauseGame(bool paused)
     {
-        if (!inGameMenu.activeInHierarchy)
-        {
-            inGameMenu.SetActive(true);
-            // TO-DO: Pausar el juego en el GameManager
-        }
-        else
-        {
-            inGameMenu.SetActive(false);
-        }
+        GameManager.Instance.PauseGameEvent(paused);
+        inGameMenu.SetActive(GameManager.Instance.IsPaused);
     }
 }
