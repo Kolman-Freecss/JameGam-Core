@@ -302,22 +302,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5161734367676491693, guid: 1518c39ad94940b458e35b0ce7bdc487, type: 3}
-      propertyPath: buttonSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 5a2eeb45191fb1b42841e1e5c830864c, type: 3}
-    - target: {fileID: 5161734367676491693, guid: 1518c39ad94940b458e35b0ce7bdc487, type: 3}
-      propertyPath: backgroundMusic.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5161734367676491693, guid: 1518c39ad94940b458e35b0ce7bdc487, type: 3}
-      propertyPath: backgroundMusic.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 9e7ff2386c1dd7e4583c37d21f85246f, type: 3}
-    - target: {fileID: 5161734367676491693, guid: 1518c39ad94940b458e35b0ce7bdc487, type: 3}
-      propertyPath: backgroundMusic.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: b53f7d9cf27218f468b4b5bc49bf4f47, type: 3}
     - target: {fileID: 7707032638997960182, guid: 1518c39ad94940b458e35b0ce7bdc487, type: 3}
       propertyPath: m_LocalPosition.x
       value: 649.80255
