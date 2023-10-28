@@ -687,6 +687,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2015691734227074136, guid: 93185ad990a15e941819b7e214c09e2d, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3529513366484298274, guid: 93185ad990a15e941819b7e214c09e2d, type: 3}
       propertyPath: m_DefaultControlScheme
       value: 
@@ -746,7 +750,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2015691734227074136, guid: 93185ad990a15e941819b7e214c09e2d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1272112231}
   m_SourcePrefab: {fileID: 100100000, guid: 93185ad990a15e941819b7e214c09e2d, type: 3}
 --- !u!1 &70562223
 GameObject:
@@ -5723,7 +5730,7 @@ GameObject:
   - component: {fileID: 733746508}
   m_Layer: 0
   m_Name: COLEGIOTrigger
-  m_TagString: Wall
+  m_TagString: Place
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6498,14 +6505,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 1aed20b4-be48-4af8-89c7-a97b0fe35621
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: be1b858f-e2b3-4c52-bd1b-1dab6a9be9b0
-    m_ActionName: Player/Look[/Mouse/delta,/Pen/delta]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6c506769-6a28-4f2f-9811-9e5d194e71a2
-    m_ActionName: Player/Fire[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 7a019c33-cdbc-4718-ba4d-934d42842777
@@ -9547,7 +9546,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   txt_meat: {fileID: 447621751}
-  txt_timer: {fileID: 687071787}
+  txt_timer: {fileID: 1731626492}
+--- !u!1 &1247879597 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2015691734227074136, guid: 93185ad990a15e941819b7e214c09e2d, type: 3}
+  m_PrefabInstance: {fileID: 67992547}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1249405981
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9610,6 +9614,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6538983466433359053, guid: 93185ad990a15e941819b7e214c09e2d, type: 3}
   m_PrefabInstance: {fileID: 67992547}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1272112231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247879597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b8ffb3cf1555e74797c22871ce47e14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Triggers:
+  - {fileID: 1966435207}
+  - {fileID: 1850403066}
+  textPlaces: {fileID: 687071787}
 --- !u!1 &1305753231
 GameObject:
   m_ObjectHideFlags: 0
@@ -12952,9 +12972,9 @@ GameObject:
   - component: {fileID: 1850403067}
   - component: {fileID: 1850403069}
   - component: {fileID: 1850403068}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: triggerzonaPricipal
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12968,7 +12988,7 @@ Transform:
   m_GameObject: {fileID: 1850403066}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -153.66632, y: 36.684517, z: 28.190605}
+  m_LocalPosition: {x: -153.66632, y: 43.5, z: 28.190605}
   m_LocalScale: {x: 356.32928, y: 162.2144, z: 9.872347}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13006,7 +13026,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.000600785, y: 0.0016372204}
+  m_Offset: {x: -0.37316567, y: -0.474602}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -13017,7 +13037,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0048449, y: 1.0106869}
+  m_Size: {x: 0.25731194, y: 0.058208406}
   m_EdgeRadius: 0
 --- !u!212 &1850403069
 SpriteRenderer:
@@ -14102,9 +14122,9 @@ GameObject:
   - component: {fileID: 1966435208}
   - component: {fileID: 1966435210}
   - component: {fileID: 1966435209}
-  m_Layer: 0
-  m_Name: triggerHabitacion
-  m_TagString: Wall
+  m_Layer: 6
+  m_Name: Room
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14118,7 +14138,7 @@ Transform:
   m_GameObject: {fileID: 1966435207}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -296.76633, y: -83.59808, z: 28.190605}
+  m_LocalPosition: {x: -296.76633, y: -117.8, z: 28.190605}
   m_LocalScale: {x: 107.551544, y: 78.40959, z: 9.872347}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14156,7 +14176,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.011551559, y: -0.0033840537}
+  m_Offset: {x: 0.011551559, y: 0.35494846}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -14167,7 +14187,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0772713, y: 1.1275197}
+  m_Size: {x: 1.0772713, y: 0.88487375}
   m_EdgeRadius: 0
 --- !u!212 &1966435210
 SpriteRenderer:
@@ -14651,7 +14671,7 @@ GameObject:
   - component: {fileID: 2027004616}
   m_Layer: 0
   m_Name: casatrigger
-  m_TagString: Wall
+  m_TagString: Place
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
