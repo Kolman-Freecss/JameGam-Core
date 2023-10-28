@@ -1,36 +1,47 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class LeashGrab : MonoBehaviour
 {
     [SerializeField] Transform _leashCenter;
     
-    Collider2D _coll;
+    //Collider2D _coll;
     Vector2 _mousePos;
     float _angle;
-    bool _grabbing;
+    bool _zipping;
     PlayerBehaviour _player;
-    SpriteRenderer _spriteRenderer;
+    LineRenderer _lineRenderer;
     
     private Vector3 zipLineDirection;
     private Vector3 zipLineTargetPosition;
-    private float zipLineSpeed = 10f;
-    private float zipLineDistance = 10f;
-    
+    private float zipLineSpeed = 250f;
+    private float zipLineDistance = 5f;
+    private float zipLineMaxDistance = 20f;
+    private State state;
+
+    private enum State
+    {
+        Normal,
+        WebZippingStarting,
+        WebZipping,
+        WebZippingSliding,
+    }
     
     #region InitData
 
     void Start()
     {
         GetReferences();
+        SetStateNormal();
         StopLeash();
     }
     
     private void GetReferences()
     {
-        _coll = GetComponent<Collider2D>();
+        //_coll = GetComponent<Collider2D>();
         _player = FindObjectOfType<PlayerBehaviour>();  
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _lineRenderer = GetComponent<LineRenderer>();
     }
 
     #endregion
@@ -42,40 +53,99 @@ public class LeashGrab : MonoBehaviour
     
     void Grab()
     {
-        if (_player.Inputs.rightClick && !_grabbing)
+        switch (state)
         {
-            // _mousePos = Input.mousePosition - Camera.main.WorldToScreenPoint(_leashCenter.position);
-            // _angle = Mathf.Atan2(_mousePos.x, _mousePos.y) * Mathf.Rad2Deg;
-            // Debug.Log("right click grab");
-            // _leashCenter.eulerAngles = new Vector3(0, 0, -_angle +90);
-            // Change the rotation of the leashCenter to the direction of the 
-            // Get data info from the mouse position and direction
-            zipLineTargetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            zipLineDirection = (zipLineTargetPosition - _leashCenter.position).normalized;
-            // Handle zippline movement
-            transform.position += zipLineDirection * zipLineSpeed * Time.deltaTime;
-            if (Vector3.Distance(transform.position, zipLineTargetPosition) <= zipLineDistance)
-            {
-                transform.position = zipLineTargetPosition;
-            }
+            case State.Normal:
+                HandleStartZip();
+                break;
+            case State.WebZipping:
+                HandleZipping();
+                break;
+            case State.WebZippingSliding:
+                HandleZippingSliding();
+                break;
+        }
+        // if (_player.Inputs.rightClick && !_zipping)
+        // {
+        //     // _mousePos = Input.mousePosition - Camera.main.WorldToScreenPoint(_leashCenter.position);
+        //     // _angle = Mathf.Atan2(_mousePos.x, _mousePos.y) * Mathf.Rad2Deg;
+        //     // Debug.Log("right click grab");
+        //     // _leashCenter.eulerAngles = new Vector3(0, 0, -_angle +90);
+        //     // Change the rotation of the leashCenter to the direction of the 
+        //     // Get data info from the mouse position and direction
+        //     Debug.Log("right click grab");
+        //     HandleStartZip();
+        //     HandleZipping();
+        //     StartLeash();
+        //     StartCoroutine(LeashGrabbing());
+    }
+
+    void HandleStartZip()
+    {
+        if (_player.Inputs.rightClick && !_zipping)
+        {
+            zipLineTargetPosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            zipLineTargetPosition.z = 0;
+            zipLineDirection = (zipLineTargetPosition - _player.transform.position).normalized;
+            zipLineSpeed = 250f;
+            SetStateWebZipping();
             
-            StartLeash();
-            StartCoroutine(LeashGrabbing());
+            //TODO: Animation here
         }
     }
     
+    private void HandleZippingSliding() {
+        zipLineSpeed -= zipLineSpeed * Time.deltaTime * 8f;
+        _player.transform.position += zipLineDirection * zipLineSpeed * Time.deltaTime;
+        
+        if (zipLineSpeed <= 5f) {
+            SetStateNormal();
+        }
+    }
+
+    void HandleZipping()
+    {
+        _player.transform.position += zipLineDirection * zipLineSpeed * Time.deltaTime;
+        //_player.transform.position = zipLineDirection;// * Time.deltaTime;
+        if (Vector3.Distance(_player.transform.position, zipLineTargetPosition) <= zipLineMaxDistance)
+        {
+            SetStateWebZippingSliding();
+        }
+    }
+
+    #region Getter & Setter
+
+    private void SetStateNormal() {
+        state = State.Normal;
+    }
+    
+    private void SetStateWebZippingStarting() {
+        state = State.WebZippingStarting;
+    }
+    
+    private void SetStateWebZipping() {
+        state = State.WebZipping;
+    }
+    
+    private void SetStateWebZippingSliding() {
+        state = State.WebZippingSliding;
+    }
+    
+
+    #endregion
+    
     void StopLeash()
     {
-        _grabbing = false;
-        _spriteRenderer.enabled = false;
-        _coll.enabled = false;
+        _zipping = false;
+        //_lineRenderer.enabled = false;
+        //_coll.enabled = false;
     }
     
     void StartLeash()
     {
-        _grabbing = true;
-        _spriteRenderer.enabled = true;
-        _coll.enabled = true;
+        _zipping = true;
+        //_lineRenderer.enabled = true;
+        //_coll.enabled = true;
     }
     
     private void OnCollisionEnter2D(Collision2D other)
