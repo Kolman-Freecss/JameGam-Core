@@ -6,13 +6,16 @@ public class KidCollision : MonoBehaviour
     public float speed = 5f; 
         
     Rigidbody2D rB;
+    Animator an;
     Vector2 direccionColision;
     bool collides = false;
+    bool running;
 
     #region InitData
 
     void Start()
     {
+        an = GetComponent<Animator>();
         rB = GetComponent<Rigidbody2D>();
     }
 
@@ -26,11 +29,21 @@ public class KidCollision : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && !running)
         {
+            running = true;
             Debug.Log("Trigger");
+            an.SetBool("Walk", true);
             direccionColision = transform.position - other.transform.position;
             StartCoroutine(Flee(direccionColision));
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            running = false;
+            an.SetBool("Walk", false);
         }
     }
 
