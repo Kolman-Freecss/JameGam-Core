@@ -336,9 +336,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1344386885775113625, guid: f85958bb04fa2064db7c809c8c012df0, type: 3}
+      propertyPath: m_Size.x
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1344386885775113625, guid: f85958bb04fa2064db7c809c8c012df0, type: 3}
+      propertyPath: m_Offset.x
+      value: -6.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 1344386885775113625, guid: f85958bb04fa2064db7c809c8c012df0, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1990196476211716290, guid: f85958bb04fa2064db7c809c8c012df0, type: 3}
+      propertyPath: m_Size.x
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 3715699407092492208, guid: f85958bb04fa2064db7c809c8c012df0, type: 3}
       propertyPath: m_Name
       value: Leash
+      objectReference: {fileID: 0}
+    - target: {fileID: 5827158456854657965, guid: f85958bb04fa2064db7c809c8c012df0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5827158456854657965, guid: f85958bb04fa2064db7c809c8c012df0, type: 3}
       propertyPath: m_LocalPosition.x

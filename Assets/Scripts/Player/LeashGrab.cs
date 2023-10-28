@@ -74,41 +74,39 @@ public class LeashGrab : MonoBehaviour
     {
         if (_player.Inputs.rightClick) // && !_zipping
         {
-            // Get positions
             _zipLineTargetPosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             _zipLineTargetPosition.z = 0;
             _zipLineDirection = (_zipLineTargetPosition - _player.transform.position).normalized;
             _zipPosition = _player.transform.position;
             
-            // Instantiate zip at player position
             //TODO: Animation here _player.Anim.SetTrigger("WebZipping");
             leashInstance = Instantiate(this.leash, _player.transform.position, Quaternion.identity);
             Vector3 zipDirection = -(_zipLineTargetPosition - _player.transform.position).normalized;
             leashInstance.eulerAngles = new Vector3(0, 0, GetAngleFromVectorFloat(zipDirection));
             
-            // Where to start the zip and where to end it 
-            Vector3 leashScale = leashInstance.localScale;
-            //SpriteRenderer leashSpriteRenderer = leashInstance.GetComponent<SpriteRenderer>();
-            Vector2 leashStart = new Vector2(0, leashScale.y);
-            Vector2 leashEnd = new Vector2(Vector3.Distance(_player.transform.position, _zipLineTargetPosition), leashScale.y);
-            // leashInstance.localScale = new Vector3(
-            //     Vector3.Distance(_zipPosition, _zipLineTargetPosition),
-            //     leashScale.y,
-            //     leashScale.z
-            // );
-            leashInstance.localScale = new Vector3(leashEnd.x, leashScale.y, leashScale.z);
-            // SpriteRenderer leashSpriteRenderer = leashInstance.GetComponent<SpriteRenderer>();
-            // Vector2 leashStart = new Vector2(0, leashSpriteRenderer.size.y);
-            // Vector2 leashEnd = new Vector2(Vector3.Distance(_player.transform.position, _zipLineTargetPosition), leashSpriteRenderer.size.y);
-            // leashSpriteRenderer.size = leashStart;
+            // ####### Leeash SpriteRenderer #######
+            SpriteRenderer leashSpriteRenderer = leashInstance.GetComponent<SpriteRenderer>();
+            Vector2 leashStart = new Vector2(0, leashSpriteRenderer.size.y);
+            Vector2 leashEnd = new Vector2(Vector3.Distance(_player.transform.position, _zipLineTargetPosition), leashSpriteRenderer.size.y);
+            leashSpriteRenderer.size = leashStart;
+            // ####### Finish Leeash SpriteRenderer #######
+            
             float timeToReachTarget = 0f;
             
-            // Animate the leash growing
+            // ####### Leeash Collider #######
+            BoxCollider2D leashCollider = leashInstance.GetComponent<BoxCollider2D>();
+            Vector2 leashColliderStart = new Vector2(0, leashCollider.size.y);
+            Vector2 leashColliderEnd = new Vector2(Vector3.Distance(_player.transform.position, _zipLineTargetPosition), leashCollider.size.y);
+            leashCollider.size = leashColliderStart;
+            // ####### Finish Leeash Collider #######
+            
+            // ####### Leeash FunctionUpdater #######
             FunctionUpdater.Create(() =>
             {
                 timeToReachTarget += Time.deltaTime * 8f;
-                //leashSpriteRenderer.size = Vector2.Lerp(leashStart, leashEnd, timeToReachTarget);
-                leashInstance.localScale = Vector3.Lerp(leashStart, leashEnd, timeToReachTarget);
+                leashSpriteRenderer.size = Vector2.Lerp(leashStart, leashEnd, timeToReachTarget);
+                leashCollider.size = Vector2.Lerp(leashColliderStart, leashColliderEnd, timeToReachTarget);
+                leashCollider.offset = new Vector2(leashCollider.size.x / 2f, 0);
                 if (timeToReachTarget >= 1f)
                 {
                     // Start zipping
@@ -143,34 +141,79 @@ public class LeashGrab : MonoBehaviour
         }
     }
 
+    /**
+     * Remove leash gradually when the zip reaches the target
+     */
     void HandleZipping()
     {
         //_player.transform.position += _zipLineDirection * _zipLineSpeed * Time.deltaTime;
         _zipPosition += _zipLineDirection * _zipLineSpeed * Time.deltaTime;
         
-        leashInstance.position = _zipPosition;
-        Vector3 zipDirection = -(_zipLineTargetPosition - _zipPosition).normalized;
-        leashInstance.eulerAngles = new Vector3(0, 0, GetAngleFromVectorFloat(zipDirection));
+        // ####### Leeash SpriteRenderer #######
+        // SpriteRenderer leashSpriteRenderer = leashInstance.GetComponent<SpriteRenderer>();
+        // Vector2 leashStart = new Vector2(leashSpriteRenderer.size.x, leashSpriteRenderer.size.y);
+        // Vector2 leashEnd = new Vector2(0, leashSpriteRenderer.size.y);
+        // // ####### Finish Leeash SpriteRenderer #######
+        //     
+        // float timeToReachTarget = 0f;
+        //     
+        // // ####### Leeash Collider #######
+        // BoxCollider2D leashCollider = leashInstance.GetComponent<BoxCollider2D>();
+        // Vector2 leashColliderStart = new Vector2(leashCollider.size.x, leashCollider.size.y);
+        // Vector2 leashColliderEnd = new Vector2(0, leashCollider.size.y);
+        // // ####### Finish Leeash Collider #######
+        //
+        // FunctionUpdater.Create(() =>
+        // {
+        //     timeToReachTarget += Time.deltaTime * 8f;
+        //     leashSpriteRenderer.size = Vector2.Lerp(leashStart, leashEnd, timeToReachTarget);
+        //     leashCollider.size = Vector2.Lerp(leashColliderStart, leashColliderEnd, timeToReachTarget);
+        //     leashCollider.offset = new Vector2(leashCollider.size.x / 2f, 0);
+        //     if (timeToReachTarget >= 1f)
+        //     {
+        //         Destroy(leashInstance.gameObject);
+        //         SetStateWebZippingSliding();
+        //         return true;
+        //     }
+        //     else
+        //     {
+        //         return false;
+        //     }
+        // });
         
+        
+        
+        // ####### Leeash SpriteRenderer #######
+        // leashInstance.position = _zipPosition;
+        // Vector3 zipDirection = -(_zipLineTargetPosition - _zipPosition).normalized;
+        // leashInstance.eulerAngles = new Vector3(0, 0, GetAngleFromVectorFloat(zipDirection));
+        //
         // SpriteRenderer leashSpriteRenderer = leashInstance.GetComponent<SpriteRenderer>();
         // leashSpriteRenderer.size = new Vector2(
         //     Vector3.Distance(_zipPosition, _zipLineTargetPosition),
         //     leashSpriteRenderer.size.y
         // );
-        Vector3 leashScale = leashInstance.localScale;
-        leashInstance.localScale = new Vector3(
-            Vector3.Distance(_zipPosition, _zipLineTargetPosition),
-            leashScale.y,
-            leashScale.z
-        );
-        
-        //_player.transform.position = _zipLineDirection;// * Time.deltaTime;
-        if (Vector3.Distance(_zipPosition, _zipLineTargetPosition) <= _zipLineMaxDistance)
-        {
-            //TODO: Animation here _player.Anim.SetTrigger("WebZippingSliding");
-            Destroy(leashInstance.gameObject);
-            SetStateWebZippingSliding();
-        }
+        // // ####### Finish Leeash SpriteRenderer #######
+        //
+        // // ####### Leeash Collider #######
+        // BoxCollider2D leashCollider = leashInstance.GetComponent<BoxCollider2D>();
+        // leashCollider.size = new Vector2(
+        //     Vector3.Distance(_zipPosition, _zipLineTargetPosition),
+        //     leashCollider.size.y
+        // );
+        // leashCollider.offset = new Vector2(
+        //     Vector3.Distance(_zipPosition, _zipLineTargetPosition) / 2f,
+        //     leashCollider.offset.y
+        // );
+        // // ####### Finish Leeash Collider #######
+        //
+        // //_player.transform.position = _zipLineDirection;// * Time.deltaTime;
+        // if (Vector3.Distance(_zipPosition, _zipLineTargetPosition) <= _zipLineMaxDistance)
+        // {
+        //     //TODO: Animation here _player.Anim.SetTrigger("WebZippingSliding");
+        //     Destroy(leashInstance.gameObject);
+        //     SetStateWebZippingSliding();
+        // }
     }
 
     #endregion
