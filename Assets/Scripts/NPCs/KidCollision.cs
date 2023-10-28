@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class KidCollision : MonoBehaviour
 {
+    public float speed = 5f; 
+        
     Rigidbody2D rB;
     Vector2 direccionColision;
     bool collides = false;
@@ -28,7 +30,7 @@ public class KidCollision : MonoBehaviour
         {
             Debug.Log("Trigger");
             direccionColision = transform.position - other.transform.position;
-            StartCoroutine(flee(direccionColision));
+            StartCoroutine(Flee(direccionColision));
         }
     }
 
@@ -37,10 +39,10 @@ public class KidCollision : MonoBehaviour
         Debug.Log("collision");
         direccionColision = transform.position - other.transform.position;
         Vector2 direccionMove = new Vector2(-direccionColision.x, direccionColision.y - direccionColision.x / 2);
-        StartCoroutine(flee(direccionMove));
+        StartCoroutine(Flee(direccionMove));
     }
 
-    IEnumerator flee(Vector3 direccion)
+    IEnumerator Flee(Vector3 direccion)
     {
         yield return new WaitForSeconds(0.2f); // Espera 300 milisegundos
 
@@ -49,7 +51,7 @@ public class KidCollision : MonoBehaviour
 
         while (Time.time - tiempoInicio < tiempoMovimiento)
         {
-            transform.Translate(direccion.normalized * 30 *
+            transform.Translate(direccion.normalized * speed *
                                 Time.deltaTime); // Mueve el objeto en sentido contrario a la colisión
             yield return null; // Espera al siguiente frame
         }

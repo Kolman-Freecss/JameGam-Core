@@ -3,16 +3,15 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterInputs))]
 public class PlayerBehaviour : MonoBehaviour
 {
+    [SerializeField] float speed = 20f;
+    public CharacterInputs Inputs => _input;
+    public SpriteRenderer spriteRend;
+
     Rigidbody2D rB;
     Vector2 inputMovement;
-    [SerializeField] float speed = 20f;
     private float _runSpeed = 40f; 
-        
-    SpriteRenderer spriteRend;
-
     private bool _hasAnimator;
     private CharacterInputs _input;
-    public CharacterInputs Inputs => _input;
     private Animator _animator;
     private bool isAlive = true;
     
