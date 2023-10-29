@@ -1615,6 +1615,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2015691734227074136, guid: 93185ad990a15e941819b7e214c09e2d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1272112223}
+    - targetCorrespondingSourceObject: {fileID: 2015691734227074136, guid: 93185ad990a15e941819b7e214c09e2d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1272112224}
   m_SourcePrefab: {fileID: 100100000, guid: 93185ad990a15e941819b7e214c09e2d, type: 3}
 --- !u!1 &67992548 stripped
 GameObject:
@@ -20170,6 +20173,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1272112224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67992548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f0f1ff9c252604083b2a895d5f3f76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasTutorial: {fileID: 1819419552}
+  triggerRoom: {fileID: 1966435207}
 --- !u!1001 &1273245021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23228,7 +23245,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -128.30002, y: 2.7999878}
+  m_AnchoredPosition: {x: -126.58, y: 1.98}
   m_SizeDelta: {x: 3535.9087, y: 1988.9485}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1432136332
@@ -25479,6 +25496,7 @@ Transform:
   - {fileID: 804685252}
   - {fileID: 2112791183}
   - {fileID: 510022631}
+  - {fileID: 1850500877}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1609092957
@@ -29907,6 +29925,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1850500876
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1850500877}
+  - component: {fileID: 1850500878}
+  m_Layer: 0
+  m_Name: showTutorial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1850500877
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850500876}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -108.04078, y: -83.45907, z: 4.901617}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1599339876}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1850500878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850500876}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f0f1ff9c252604083b2a895d5f3f76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasTutorial: {fileID: 1819419552}
+  triggerRoom: {fileID: 1966435207}
 --- !u!1001 &1851265923
 PrefabInstance:
   m_ObjectHideFlags: 0
