@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class KidCollision : MonoBehaviour
 {
-    public float speed = 5f; 
+    [SerializeField]
+    private float speed = 5f; 
         
     Rigidbody2D rB;
     Animator an;
     Vector2 direccionColision;
-    bool collides = false;
     bool running;
     [SerializeField] AudioClip[] audios = new AudioClip[3];
     AudioSource audioSource;
@@ -32,14 +32,10 @@ public class KidCollision : MonoBehaviour
     {
         Debug.Log(volume);
     }
-    private void FixedUpdate()
-    {
-        //Debug.Log(transform.position);
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player" && !running)
+        if (other.gameObject.CompareTag("Player") && !running)
         {
             volume = PlayerPrefs.GetFloat("EffectsAudioPref");
             audioSource.volume = volume;
@@ -54,7 +50,7 @@ public class KidCollision : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             running = false;
             an.SetBool("Walk", false);
