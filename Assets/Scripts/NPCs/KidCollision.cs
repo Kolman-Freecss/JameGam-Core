@@ -11,11 +11,14 @@ public class KidCollision : MonoBehaviour
     Vector2 direccionColision;
     bool collides = false;
     bool running;
+    [SerializeField] AudioClip[] audios = new AudioClip[3];
+    AudioSource audioSource;
 
     #region InitData
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         an = GetComponent<Animator>();
         rB = GetComponent<Rigidbody2D>();
     }
@@ -32,6 +35,8 @@ public class KidCollision : MonoBehaviour
     {
         if (other.tag == "Player" && !running)
         {
+            audioSource.clip = audios[Random.Range(0, 3)];
+            audioSource.Play();
             running = true;
             Debug.Log("Trigger");
             an.SetBool("Walk", true);

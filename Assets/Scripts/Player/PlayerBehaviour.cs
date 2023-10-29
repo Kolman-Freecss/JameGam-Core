@@ -9,6 +9,8 @@ public class PlayerBehaviour : MonoBehaviour
 {
     [SerializeField] float speed = 20f;
     [SerializeField] public PhaseManager PhaseManager;
+    [SerializeField] AudioClip[] audios = new AudioClip[4];
+    AudioSource audioSource;
     public static PlayerBehaviour Instance { get; private set; }
 
     #region Player Components
@@ -20,6 +22,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Bleeding bleeding;
     [HideInInspector]
     public TriggerLocations triggerLocations;
+    bool screaming;
 
     #endregion
 
@@ -61,6 +64,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         GetReferences();
         SubscribeToDelegatesAndUpdateValues();
         spriteRend = GetComponent<SpriteRenderer>();
@@ -132,6 +136,12 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (_input.leftClick)
         {
+            if (!screaming)
+            {
+                audioSource.clip = audios[Random.Range(0, 3)];
+                audioSource.Play();
+                StartCoroutine(ScreamCD());
+            }
             if (_hasAnimator)
             {
                 _animator.SetBool(_animAttackID, true);
@@ -147,6 +157,12 @@ public class PlayerBehaviour : MonoBehaviour
 
             Debug.Log("Right Click!");
         }
+    }
+    IEnumerator ScreamCD()
+    {
+        screaming = true;
+        yield return new WaitForSeconds(1.5f);
+        screaming = false;
     }
 
     void Die()
