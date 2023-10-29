@@ -16,7 +16,8 @@ namespace Config
         
         #region Phase1 Variables
 
-        [SerializeField] GameObject door;
+        [SerializeField] GameObject doorClosed;
+        [SerializeField] GameObject doorOpened;
         [SerializeField] private GameObject canvasNote;
         public bool noteOpened;
 
@@ -46,12 +47,14 @@ namespace Config
         
         public void CloseDoor()
         {
-            door.SetActive(true);
+            doorClosed.SetActive(true);
+            doorOpened.SetActive(false);
         }
         
         public void OpenDoor()
         {
-            door.SetActive(false);
+            doorClosed.SetActive(false);
+            doorOpened.SetActive(true);
         }
         
         public void ReadNote()
