@@ -11,7 +11,7 @@ public class PlayerBehaviour : MonoBehaviour
     public static PlayerBehaviour Instance { get; private set; }
     public CharacterInputs Inputs => _input;
     public SpriteRenderer spriteRend;
-    private LeashGrab _leashGrab;
+    //private LeashGrab _leashGrab;
 
     Rigidbody2D rB;
     Vector2 inputMovement;
@@ -40,7 +40,6 @@ public class PlayerBehaviour : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
             Debug.Log("Player created");
         }
         else
@@ -62,7 +61,7 @@ public class PlayerBehaviour : MonoBehaviour
         _hasAnimator = TryGetComponent(out _animator);
         _input = GetComponent<CharacterInputs>();
         rB = GetComponent<Rigidbody2D>();
-        _leashGrab = GetComponent<LeashGrab>();
+        //_leashGrab = GetComponent<LeashGrab>();
 
         AssignAnimationIDs();
     }
@@ -70,7 +69,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void SubscribeToDelegatesAndUpdateValues()
     {
         GameManager.Instance.OnDeath += Die;
-        _leashGrab.OnEatKid += GameManager.Instance.AddScore;
+        //_leashGrab.OnEatKid += GameManager.Instance.AddScore;
     }
 
     private void UnsubscribeToDelegates()
