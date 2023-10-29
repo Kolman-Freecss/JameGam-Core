@@ -13,6 +13,8 @@ namespace Config
         public bool phase1Completed = false;
         [HideInInspector]
         public bool phase2Completed = false;
+        [HideInInspector]
+        public bool lastPhaseCompleted = false;
         
         #region Phase1 Variables
 
@@ -21,6 +23,12 @@ namespace Config
         [SerializeField] private GameObject canvasNote;
         [SerializeField] private GameObject rope;
         public bool noteOpened;
+
+        #endregion
+
+        #region LastPhase Variables
+
+        [SerializeField] private GameObject tomb;
 
         #endregion
 
@@ -100,6 +108,18 @@ namespace Config
                     PlayerBehaviour.Instance.bleeding.StartBleed();
                 }
             }
+        }
+
+        #endregion
+
+        #region LastPhase Logic
+
+        public void WinGame()
+        {
+            Debug.Log("Win game");
+            lastPhaseCompleted = true;
+            //tomb.SetActive(true);
+            GameManager.Instance.WinGameEvent();
         }
 
         #endregion

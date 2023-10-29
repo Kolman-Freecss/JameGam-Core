@@ -109,7 +109,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (!isAlive)
+        if (!isAlive && GameManager.Instance.isGameOver)
         {
             return;
         }

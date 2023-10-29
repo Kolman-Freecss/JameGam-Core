@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     
     [SerializeField] float levelLoadDelay = 1f;
+    [SerializeField] float gameWinDelay = 1f;
 
     #region GameSession Variables
 
@@ -33,6 +34,10 @@ public class GameManager : MonoBehaviour
     public delegate void GameOver();
     
     public static event GameOver OnGameOver;
+
+    public delegate void WinGame();
+    
+    public static event WinGame OnWinGame;
 
     #endregion
     
@@ -153,6 +158,13 @@ public class GameManager : MonoBehaviour
         OnPauseGame?.Invoke(isPaused);
     }
 
+    public void WinGameEvent()
+    {
+        Instance.isGameOver = true;
+        OnWinGame?.Invoke();
+        Instance.StartCoroutine(HandleWinEvent());
+    }
+
     #endregion
 
     #region Events
@@ -169,6 +181,12 @@ public class GameManager : MonoBehaviour
         ExitGameSession();
     }
     
+    public void OnCredits()
+    {
+        SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
+        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler.CreditsSceneName);
+    }
+    
     /**
      * When the player dies, the game is over.
      */
@@ -182,9 +200,17 @@ public class GameManager : MonoBehaviour
         Debug.Log("You died. Game Over.");
         isGameOver = true;
         OnDeath?.Invoke();
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
         
         SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler.DeathSceneName);   
+    }
+
+    IEnumerator HandleWinEvent()
+    {
+        Debug.Log("You win. Game Over.");
+        yield return new WaitForSeconds(gameWinDelay);
+        
+        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler.WinSceneName);
     }
 
     IEnumerator LoadGameReset()
