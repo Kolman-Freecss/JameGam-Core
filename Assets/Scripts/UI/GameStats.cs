@@ -1,26 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
 
 public class GameStats : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI txt_meat;
     [SerializeField] TextMeshProUGUI txt_timer;
-    GameManager gameManager;
 
     void Start()
     {
-        gameManager = GameManager.Instance;
-        txt_timer.text = gameManager.timeToDeath.ToString();
-        txt_meat.text = gameManager.meatScore.ToString();
+        txt_timer.text = GameManager.Instance.timeToDeath.ToString();
+        txt_meat.text = GameManager.Instance.meatScore.ToString();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        txt_timer.text = gameManager.timeToDeath.ToString();
-        txt_meat.text = gameManager.meatScore.ToString();
+        txt_timer.text = GameManager.Instance.timeToDeath.ToString();
+        txt_meat.text = GameManager.Instance.meatScore.ToString();
     }
 }

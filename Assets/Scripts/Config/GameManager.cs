@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     #region GameSession Variables
 
-    public int timeToDeath = 60;
+    public int timeToDeath = 5; //60
     public int meatScore = 0;
     public bool isGameOver = false;
 
@@ -59,6 +60,12 @@ public class GameManager : MonoBehaviour
         OnPauseGame += StopGame;
         OnGameOver += RestartGameSession;
     }
+    
+    void UnsubscribeToDelegates()
+    {
+        OnPauseGame -= StopGame;
+        OnGameOver -= RestartGameSession;
+    }
 
     #endregion
 
@@ -95,7 +102,7 @@ public class GameManager : MonoBehaviour
     public void RestartGameSession()
     {
         meatScore = 0;
-        timeToDeath = 60;
+        timeToDeath = 5;
         isGameOver = false;
     }
 
@@ -158,7 +165,6 @@ public class GameManager : MonoBehaviour
     {
         while (timeToDeath > 0)
         {
-         
             yield return new WaitForSeconds(1);
             timeToDeath--;
         }
@@ -180,6 +186,18 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(levelLoadDelay);
         
         SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler.DefaultMainMenuSceneName);
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log("GameManager destroyed");
+        UnsubscribeToDelegates();
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log("GameManager disabled");
+        UnsubscribeToDelegates();
     }
 
     #endregion

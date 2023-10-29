@@ -62,6 +62,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
         GameManager.Instance.OnDeath += Die;
     }
+    
+    private void UnsubscribeToDelegates()
+    {
+        GameManager.Instance.OnDeath -= Die;
+    }
 
     private void AssignAnimationIDs()
     {
@@ -73,6 +78,8 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
     #endregion
+
+    #region Logic
 
     void Update()
     {
@@ -165,4 +172,16 @@ public class PlayerBehaviour : MonoBehaviour
             spriteRend.flipX = false;
         }
     }
+
+    #endregion
+
+    #region Event Functions
+
+    private void OnDestroy()
+    {
+        Debug.Log("Player destroyed");
+        UnsubscribeToDelegates();
+    }
+
+    #endregion
 }
