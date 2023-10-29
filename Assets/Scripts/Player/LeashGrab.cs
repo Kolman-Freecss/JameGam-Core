@@ -1,4 +1,3 @@
-
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,7 +5,6 @@ using Utils;
 
 public class LeashGrab : MonoBehaviour
 {
-
     public Transform leash;
     public Transform tie;
 
@@ -94,7 +92,6 @@ public class LeashGrab : MonoBehaviour
 
     void HandleStartZip()
     {
-
         if (_player.Inputs.rightClick) // && !_zipping
         {
             _zipLineTargetPosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
@@ -111,7 +108,8 @@ public class LeashGrab : MonoBehaviour
             // ####### Leeash SpriteRenderer #######
             SpriteRenderer leashSpriteRenderer = leashInstance.GetComponent<SpriteRenderer>();
             Vector2 _leashStart = new Vector2(0, leashSpriteRenderer.size.y);
-            Vector2 leashEnd = new Vector2(Vector3.Distance(_player.transform.position, _zipLineTargetPosition), leashSpriteRenderer.size.y);
+            Vector2 leashEnd = new Vector2(Vector3.Distance(_player.transform.position, _zipLineTargetPosition),
+                leashSpriteRenderer.size.y);
             leashSpriteRenderer.size = _leashStart;
             // ####### Finish Leeash SpriteRenderer #######
 
@@ -120,7 +118,8 @@ public class LeashGrab : MonoBehaviour
             // ####### Leeash Collider #######
             BoxCollider2D leashCollider = leashInstance.GetComponent<BoxCollider2D>();
             Vector2 leashColliderStart = new Vector2(0, leashCollider.size.y);
-            Vector2 leashColliderEnd = new Vector2(Vector3.Distance(_player.transform.position, _zipLineTargetPosition), leashCollider.size.y);
+            Vector2 leashColliderEnd = new Vector2(Vector3.Distance(_player.transform.position, _zipLineTargetPosition),
+                leashCollider.size.y);
             leashCollider.size = leashColliderStart;
             // ####### Finish Leeash Collider #######
 
@@ -143,7 +142,8 @@ public class LeashGrab : MonoBehaviour
                     Vector2 vectorCortado = new Vector2(senAngle, cosAngle);
                     vectorCortado.Normalize();
                     */
-                    Vector2 finalVector = new Vector2(Vector3.Distance(_player.transform.position, _zipLineTargetPosition), 0f);
+                    Vector2 finalVector =
+                        new Vector2(Vector3.Distance(_player.transform.position, _zipLineTargetPosition), 0f);
                     finalVector.Normalize();
                     //tieInstance.transform.Translate(Vector2.Lerp(_leashStart, finalVector * 30f, timeToReachTarget));
                     // vectorCortado.Normalize();
@@ -157,7 +157,7 @@ public class LeashGrab : MonoBehaviour
                     //tieInstance.transform.Translate(Vector2.Lerp(_leashStart, leashEnd, timeToReachTarget));
                     leashCollider.size = Vector2.Lerp(leashColliderStart, leashColliderEnd, timeToReachTarget);
                 }
-                
+
 
                 //leashCollider.offset = new Vector2(leashCollider.size.x / 2f, 0);
                 if (timeToReachTarget >= 1f)
@@ -175,7 +175,6 @@ public class LeashGrab : MonoBehaviour
             });
 
             SetStateWebZippingStarting();
-
         }
     }
 
@@ -197,11 +196,12 @@ public class LeashGrab : MonoBehaviour
         {
             SetStateNormal();
         }
+
         if (_kid != null)
         {
             Destroy(_kid.gameObject.GetComponent<KidCollision>());
             Vector2 finalPosition = _kid.transform.position - this.gameObject.transform.position;
-            _kid.transform.Translate(-finalPosition * 15f * Time.deltaTime/3);
+            _kid.transform.Translate(-finalPosition * 15f * Time.deltaTime / 3);
 
             //Destroy(_kid);
         }
@@ -231,11 +231,11 @@ public class LeashGrab : MonoBehaviour
         float timeToReachTarget = 0f;
         timeToReachTarget += Time.deltaTime * 0.8f;
         _leashStart = new Vector2(0, leashSpriteRenderer.size.y);
-        Vector2 leashEnd = new Vector2(Vector3.Distance(_player.transform.position, _zipLineTargetPosition), leashSpriteRenderer.size.y);
+        Vector2 leashEnd = new Vector2(Vector3.Distance(_player.transform.position, _zipLineTargetPosition),
+            leashSpriteRenderer.size.y);
 
 
         leashSpriteRenderer.size = Vector2.Lerp(_leashStart, leashEnd, timeToReachTarget);
-
 
 
         Destroy(leashInstance.gameObject);
@@ -247,6 +247,7 @@ public class LeashGrab : MonoBehaviour
     {
         //Destroy(leashInstance.gameObject);
     }
+
     #endregion
 
     #region Getter & Setter
@@ -271,7 +272,5 @@ public class LeashGrab : MonoBehaviour
         _state = State.WebZippingSliding;
     }
 
-
     #endregion
-
 }

@@ -13686,7 +13686,7 @@ GameObject:
   - component: {fileID: 1432136332}
   - component: {fileID: 1432136334}
   m_Layer: 5
-  m_Name: Image
+  m_Name: OpenNote
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20976,7 +20976,7 @@ PrefabInstance:
     - target: {fileID: 7643251766993202801, guid: 8cd55af1cc752834b99e3f8988cff149, type: 3}
       propertyPath: canvasNote
       value: 
-      objectReference: {fileID: 872450819}
+      objectReference: {fileID: 1282307814}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
