@@ -88,7 +88,10 @@ namespace Config
             if (startPhase2)
             {
                 phase1Completed = true;
-                PlayerBehaviour.Instance.bleeding.StartBleed();
+                if (DisplaySettings.Instance.blood)
+                {
+                    PlayerBehaviour.Instance.bleeding.StartBleed();
+                }
             }
         }
 
