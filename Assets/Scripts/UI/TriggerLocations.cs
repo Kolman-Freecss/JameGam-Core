@@ -13,6 +13,7 @@ public class TriggerLocations : MonoBehaviour
     public float minZoom = 0f; // El nivel mínimo de zoom
     public float maxZoom = 0f; // El nivel máximo de zoom
     bool makeZoom = false;
+    bool returnSchool = false;
     float finalZoom;
 
     #region Event Variables
@@ -71,24 +72,43 @@ public class TriggerLocations : MonoBehaviour
                     makeZoom = true;
                     break;
                 case "Park":
-                    minZoom *= 1f;
-                    maxZoom *= 1.3f;
-                    finalZoom = Random.Range(minZoom, maxZoom);
-                    makeZoom = true;
+                    if (!returnSchool)
+                    {
+                        minZoom *= 1f;
+                        maxZoom *= 1.3f;
+                        finalZoom = Random.Range(minZoom, maxZoom);
+                        makeZoom = true;
+                        returnSchool = true;
+                    }
+
                     break;
                 case "Road":
                     minZoom *= 1f;
                     maxZoom *= 1.3f;
                     finalZoom = Random.Range(minZoom, maxZoom);
                     makeZoom = true;
+
+                    break;
+                case "School1":
+                    if (returnSchool)
+                    {
+                        minZoom /= 1f;
+                        maxZoom /= 1.3f;
+                        makeZoom = true;
+                        returnSchool = false;
+                    }
                     break;
                 case "tomb":
+                    Debug.Log("Win");
                     PlayerBehaviour.Instance.PhaseManager.WinGame();
                     break;
             }
+            if (collision.gameObject.name != "School1")
+            {
+                // Actualiza el texto con el nombre del lugar
+                textPlaces.text = collision.gameObject.name;
+            }
 
-            // Actualiza el texto con el nombre del lugar
-            textPlaces.text = collision.gameObject.name;
         }
     }
 }

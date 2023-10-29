@@ -87,13 +87,14 @@ public class PlayerBehaviour : MonoBehaviour
     {
         GameManager.Instance.OnDeath += Die;
         _leashGrab.OnEatKid += GameManager.Instance.AddScore;
+        GameManager.Instance.OnWinGame += WinGame;
     }
 
     private void UnsubscribeToDelegates()
     {
         GameManager.Instance.OnDeath -= Die;
     }
-
+    
     private void AssignAnimationIDs()
     {
         _animAttackID = Animator.StringToHash("Attack");
@@ -109,7 +110,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (!isAlive && GameManager.Instance.isGameOver)
+        if (!isAlive || GameManager.Instance.isGameOver)
         {
             return;
         }
@@ -130,6 +131,20 @@ public class PlayerBehaviour : MonoBehaviour
     private void FixedUpdate()
     {
         rB.AddRelativeForce(new Vector2(inputMovement.x * speed, inputMovement.y * speed), ForceMode2D.Impulse);
+    }
+    
+    void WinGame()
+    {
+        if (!isAlive)
+        {
+            return;
+        }
+        //TODO: Cuando gans y juegas otra vez, el personaje tiene destruido el animator en este punto
+        if (_hasAnimator && _animator != null)
+        {
+            _animator.SetTrigger(_animDeathID);
+        }
+        Debug.Log("Player is win");
     }
 
     void Attack()

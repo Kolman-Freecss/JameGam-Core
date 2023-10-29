@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     #region GameSession Variables
 
-    public int timeToDeath = 60;
+    public int timeToDeath = 5;
     public int meatScore = 0;
     public bool isGameOver = false;
 
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     public delegate void WinGame();
     
-    public static event WinGame OnWinGame;
+    public event WinGame OnWinGame;
 
     #endregion
     
@@ -116,13 +116,13 @@ public class GameManager : MonoBehaviour
 
     public void InitHandleGameOver()
     {
-        _coroutineGameTimer = Instance.StartCoroutine(HandleGameOver());
+        Instance._coroutineGameTimer = Instance.StartCoroutine(HandleGameOver());
     }
     
     public void RestartGameSession()
     {
         Instance.meatScore = 0;
-        Instance.timeToDeath = 60;
+        Instance.timeToDeath = 5;
         Instance.isGameOver = false;
     }
 
@@ -141,11 +141,16 @@ public class GameManager : MonoBehaviour
     {
         if (paused)
         {
-            StopCoroutine(_coroutineGameTimer);
+            StopHandleGameOver();
         } else
         {
-            _coroutineGameTimer = Instance.StartCoroutine(HandleGameOver());
+            Instance._coroutineGameTimer = Instance.StartCoroutine(HandleGameOver());
         }
+    }
+    
+    public void StopHandleGameOver()
+    {
+        StopCoroutine(Instance._coroutineGameTimer);
     }
     
     public void PauseGameEvent(bool paused)
@@ -163,9 +168,8 @@ public class GameManager : MonoBehaviour
 
     public void WinGameEvent()
     {
-        Instance.isGameOver = true;
-        OnWinGame?.Invoke();
         Instance.StartCoroutine(HandleWinEvent());
+        OnWinGame?.Invoke();
     }
 
     #endregion
@@ -210,7 +214,9 @@ public class GameManager : MonoBehaviour
 
     IEnumerator HandleWinEvent()
     {
+        Instance.isGameOver = true;
         Debug.Log("You win. Game Over.");
+        StopHandleGameOver();
         yield return new WaitForSeconds(gameWinDelay);
         
         SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler.WinSceneName);
