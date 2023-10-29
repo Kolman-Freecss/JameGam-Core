@@ -14,14 +14,19 @@ public class TriggerLocations : MonoBehaviour
     public float maxZoom = 0f; // El nivel máximo de zoom
     bool makeZoom = false;
     bool returnSchool = false;
+    bool returnGraveyard = false;
     float finalZoom;
 
     #region Event Variables
 
     public event Action<bool> PhaseOneCompleted;
+    public event Action<int> OnEatKid;
 
     #endregion
 
+    void Start()
+    {
+    }
     void Update()
     {
         if (makeZoom)
@@ -37,6 +42,15 @@ public class TriggerLocations : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Trigger TriggerLocation");
+        if (collision.gameObject.CompareTag("Kid"))
+        {
+            if (collision != collision.gameObject.GetComponent<CircleCollider2D>())
+            {
+                OnEatKid?.Invoke(1);
+                Destroy(collision.gameObject);
+            }
+
+        }
         // Verifica si el objeto que colision� tiene la etiqueta "Lugar"
         if (collision.gameObject.layer == LayerMask.NameToLayer("Places"))
         {
@@ -96,6 +110,22 @@ public class TriggerLocations : MonoBehaviour
                         maxZoom /= 1.3f;
                         makeZoom = true;
                         returnSchool = false;
+                    }
+                    break;
+                case "Graveyard":
+                    if (returnGraveyard)
+                    {
+                        minZoom *= 1f;
+                        maxZoom *= 1.3f;
+                        finalZoom = Random.Range(minZoom, maxZoom);
+                        returnGraveyard = false;
+                    }
+                    else
+                    {
+                        minZoom /= 1f;
+                        maxZoom /= 1.3f;
+                        makeZoom = true;
+                        returnGraveyard = true;
                     }
                     break;
                 case "tomb":

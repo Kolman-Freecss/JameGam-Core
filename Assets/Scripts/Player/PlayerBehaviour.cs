@@ -16,12 +16,13 @@ public class PlayerBehaviour : MonoBehaviour
 
     public CharacterInputs Inputs => _input;
     public SpriteRenderer spriteRend;
-    private LeashGrab _leashGrab;
+    private TriggerLocations _triggerLocation;
     [HideInInspector]
     public Bleeding bleeding;
     [HideInInspector]
     public TriggerLocations triggerLocations;
     bool screaming;
+    float volume;
 
     #endregion
 
@@ -70,6 +71,7 @@ public class PlayerBehaviour : MonoBehaviour
         GetReferences();
         SubscribeToDelegatesAndUpdateValues();
         spriteRend = GetComponent<SpriteRenderer>();
+        volume = PlayerPrefs.GetFloat("EffectsAudioPref");
     }
 
     private void GetReferences()
@@ -78,7 +80,7 @@ public class PlayerBehaviour : MonoBehaviour
         _hasAnimator = TryGetComponent(out _animator);
         _input = GetComponent<CharacterInputs>();
         rB = GetComponent<Rigidbody2D>();
-        _leashGrab = GetComponent<LeashGrab>();
+        _triggerLocation = GetComponent<TriggerLocations>();
         bleeding = GetComponent<Bleeding>();
         triggerLocations = GetComponent<TriggerLocations>();
 
@@ -88,7 +90,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void SubscribeToDelegatesAndUpdateValues()
     {
         GameManager.Instance.OnDeath += Die;
-        _leashGrab.OnEatKid += GameManager.Instance.AddScore;
+        _triggerLocation.OnEatKid += GameManager.Instance.AddScore;
         GameManager.Instance.OnWinGame += WinGame;
         Instance.Inputs.OnInteractTrigger += Interact;
     }
@@ -164,6 +166,8 @@ public class PlayerBehaviour : MonoBehaviour
         {
             if (!screaming)
             {
+                volume = PlayerPrefs.GetFloat("EffectsAudioPref");
+                audioSource.volume = volume * 0.6f;
                 audioSource.clip = audios[Random.Range(0, 3)];
                 audioSource.Play();
                 StartCoroutine(ScreamCD());

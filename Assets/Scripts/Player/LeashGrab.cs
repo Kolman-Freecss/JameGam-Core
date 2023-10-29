@@ -29,7 +29,7 @@ public class LeashGrab : MonoBehaviour
 
     #region Event Variables
 
-    public event Action<int> OnEatKid;
+    //public event Action<int> OnEatKid;
 
     #endregion
 
@@ -63,11 +63,13 @@ public class LeashGrab : MonoBehaviour
 
         if (_kid != null)
         {
+            /*
             if (Vector3.Distance(_player.transform.position, _kid.transform.position) <= 13f)
             {
                 OnEatKid?.Invoke(1);
                 Destroy(_kid);
             }
+            */
             if(Input.GetMouseButtonUp(0) && doorOpened){
                 _kid = null;
             }
@@ -203,6 +205,7 @@ public class LeashGrab : MonoBehaviour
             SetStateNormal();
         }
 
+        Debug.Log(_kid);
         if (_kid != null)
         {
             Destroy(_kid.gameObject.GetComponent<KidCollision>());

@@ -44,6 +44,7 @@ public class SoundManager : MonoBehaviour
             SetMusicVolume(PlayerPrefs.GetFloat(MusicAudioPref));
             SetEffectsVolume(PlayerPrefs.GetFloat(EffectsAudioPref));
         }
+        SaveSoundSettings();
         StartBackgroundMusic(0);
     }
     
@@ -82,6 +83,7 @@ public class SoundManager : MonoBehaviour
         PlayerPrefs.SetFloat(EffectsAudioPref, volume);
         EffectsAudioVolume = volume;
         buttonAudioSource.volume = volume;
+        SaveSoundSettings();
     }
     
     public void SetMusicVolume(float volume)
@@ -89,6 +91,7 @@ public class SoundManager : MonoBehaviour
         PlayerPrefs.SetFloat(MusicAudioPref, volume);
         MusicAudioVolume = volume;
         backgroundAudio.volume = volume;
+        SaveSoundSettings();
     }
     
     public float GetSoundVolume()
