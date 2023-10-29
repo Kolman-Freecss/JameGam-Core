@@ -1465,12 +1465,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 52865966}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -113.17356, y: -91.055664, z: 3.0328128}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1599339876}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &61717407
 GameObject:
@@ -10192,17 +10192,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 578025863}
-  m_LocalRotation: {x: -0, y: -0, z: 0.020687984, w: 0.99978596}
+  m_LocalRotation: {x: -0, y: -0, z: 0.028949477, w: 0.99958086}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 849047245}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 2.371}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 3.318}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 54.57129, y: -196.64528}
-  m_SizeDelta: {x: 1200.4023, y: 283.5843}
+  m_AnchoredPosition: {x: -5.349786, y: -129.31403}
+  m_SizeDelta: {x: 1057.489, y: 248.526}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &578025865
 MonoBehaviour:
@@ -10224,8 +10224,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: In case that you (I) wake up as a zombie, just run out and try to eat meat
-    to get into our pantheon to survive.
+  m_text: In case that you (I) wake up as a zombie, just run out and get some meat
+    before rotting and try to reach your tomb and die how you should.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a10880f0d4622234bb80c8df2826dbb6, type: 2}
   m_sharedMaterial: {fileID: 7880960025380481001, guid: a10880f0d4622234bb80c8df2826dbb6, type: 2}
@@ -10252,7 +10252,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 55
+  m_fontSize: 51.6
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -13960,7 +13960,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &849047245
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15031,17 +15031,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949812035}
-  m_LocalRotation: {x: -0, y: -0, z: 0.020687984, w: 0.99978596}
+  m_LocalRotation: {x: -0, y: -0, z: 0.028949477, w: 0.99958086}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 849047245}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 2.371}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 3.318}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 17.9927, y: 274.8359}
-  m_SizeDelta: {x: 1011.5622, y: 208.3847}
+  m_AnchoredPosition: {x: -12, y: 273}
+  m_SizeDelta: {x: 973.335, y: 158.859}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &949812037
 MonoBehaviour:
@@ -15063,9 +15063,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "I'm tired of fighting against this new era of zombies at our city. \nI
-    need to break the circle before it is too late. Thy this I have taken this choice,
-    be hanged out before turning into one of this monster. \n"
+  m_text: "I'm tired of fighting against this new era of zombies at our city. \r\nI
+    need to break the circle before it's too late. This is why I have taken this
+    choice, be hanged out before turning into one of these monsters. \n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a10880f0d4622234bb80c8df2826dbb6, type: 2}
   m_sharedMaterial: {fileID: 7880960025380481001, guid: a10880f0d4622234bb80c8df2826dbb6, type: 2}
@@ -15092,12 +15092,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.9
+  m_fontSize: 33.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 50
+  m_fontSizeMax: 45
   m_fontStyle: 0
   m_HorizontalAlignment: 8
   m_VerticalAlignment: 256
@@ -20916,7 +20916,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1282307815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23475,8 +23475,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 3.203}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 408.21658, y: -285.87115}
-  m_SizeDelta: {x: 77.5651, y: 46.2738}
+  m_AnchoredPosition: {x: 344.1, y: -280}
+  m_SizeDelta: {x: 2164.252, y: 1217.391}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1399162723
 MonoBehaviour:
@@ -23498,9 +23498,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c4b67879991d99547bfcb24eccc75e53, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bd7e612618e213f4499208dac3ab8870, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -26013,6 +26013,7 @@ Transform:
   - {fileID: 2112791183}
   - {fileID: 510022631}
   - {fileID: 1850500877}
+  - {fileID: 52865968}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1609092957
@@ -31618,17 +31619,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1935832819}
-  m_LocalRotation: {x: -0, y: -0, z: 0.020687984, w: 0.99978596}
+  m_LocalRotation: {x: -0, y: -0, z: 0.028949477, w: 0.99958086}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 849047245}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 2.371}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 3.318}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 39, y: 111}
-  m_SizeDelta: {x: 1053.9385, y: 234.6459}
+  m_AnchoredPosition: {x: 9.205256, y: 105.46224}
+  m_SizeDelta: {x: 989.509, y: 176.872}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1935832821
 MonoBehaviour:
@@ -31650,14 +31651,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '
+  m_text: 'My only hope to stop my body from converting to these things is by dying
+    this way.
 
-    My only hope to stop my body converison by dying though my biggest
-    nightmare is wake up as them after that.
-
-    I have seen them eat humans in
-    order to survive and avoid decay and death if they do not eat anything in one
-    minute'
+    I have seen them eat other humans in order to survive and avoid
+    their body decaying. They will die if they don''t eat anything within 15 seconds.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a10880f0d4622234bb80c8df2826dbb6, type: 2}
   m_sharedMaterial: {fileID: 7880960025380481001, guid: a10880f0d4622234bb80c8df2826dbb6, type: 2}
@@ -31684,12 +31682,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.25
+  m_fontSize: 31.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 50
+  m_fontSizeMax: 45
   m_fontStyle: 0
   m_HorizontalAlignment: 8
   m_VerticalAlignment: 256
@@ -35945,4 +35943,3 @@ SceneRoots:
   - {fileID: 1929011163}
   - {fileID: 1189627316}
   - {fileID: 704182633}
-  - {fileID: 52865968}
