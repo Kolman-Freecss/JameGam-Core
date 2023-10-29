@@ -60,7 +60,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void SubscribeToDelegatesAndUpdateValues()
     {
-        GameManager.Instance.OnGameOver += Die;
+        GameManager.Instance.OnDeath += Die;
     }
 
     private void AssignAnimationIDs()

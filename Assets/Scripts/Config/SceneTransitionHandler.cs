@@ -8,11 +8,12 @@ public class SceneTransitionHandler : MonoBehaviour
     public static SceneTransitionHandler sceneTransitionHandler { get; private set; }
 
     [FormerlySerializedAs("DefaultMainMenuSceneName")] [SerializeField]
-    public String defaultMainMenuSceneName = "Intro";
-    public String gameSceneName = "InGame";
-    public String gameOverSceneName = "GameOver";
-    public String optionsSceneName = "Options";
-    public String creditsSceneName = "Credits";
+    public string DefaultMainMenuSceneName = "Intro";
+    public string GameSceneName = "InGame";
+    public string GameOverSceneName = "GameOver";
+    public string DeathSceneName = "Death";
+    public string OptionsSceneName = "Options";
+    public string CreditsSceneName = "Credits";
     
     public enum SceneStates
     {
@@ -20,7 +21,8 @@ public class SceneTransitionHandler : MonoBehaviour
         InGame,
         Options,
         GameOver,
-        Credits
+        Credits,
+        Death
     }
 
     private SceneStates m_SceneState;
@@ -46,7 +48,7 @@ public class SceneTransitionHandler : MonoBehaviour
         if (m_SceneState == SceneStates.Intro)
 
         {
-            SceneManager.LoadScene(defaultMainMenuSceneName);
+            SceneManager.LoadScene(DefaultMainMenuSceneName);
         }
     }
 
@@ -66,14 +68,16 @@ public class SceneTransitionHandler : MonoBehaviour
                 return SceneStates.GameOver;
             case "Credits":
                 return SceneStates.Credits;
+            case "Death":
+                return SceneStates.Death;
             default:
-                throw new ArgumentException("Nombre de escena no válido");
+                throw new ArgumentException("No scene name found");
         }
     }
     
     public void ExitAndLoadStartMenu()
     {
-        SwitchScene(defaultMainMenuSceneName);
+        SwitchScene(DefaultMainMenuSceneName);
     }
 
     public void SwitchScene(string scenename)
