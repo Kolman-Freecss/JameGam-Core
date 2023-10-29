@@ -23,6 +23,7 @@ public class Bleeding : MonoBehaviour
     
     private void OnBloodEvent(bool isBleeding)
     {
+        Debug.Log("Blood event received" + isBleeding);
         if (isBleeding)
         {
             StartBleed();
