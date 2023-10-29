@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Assertions;
+using System.Collections;
 
 [RequireComponent(typeof(CharacterInputs))]
 public class PlayerBehaviour : MonoBehaviour
@@ -16,7 +17,6 @@ public class PlayerBehaviour : MonoBehaviour
     private CharacterInputs _input;
     private Animator _animator;
     private bool isAlive = true;
-
     // Animation IDs
     private int _animAttackID;
     private int _animDeathID;
@@ -62,7 +62,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         GameManager.Instance.OnDeath += Die;
     }
-    
+
     private void UnsubscribeToDelegates()
     {
         GameManager.Instance.OnDeath -= Die;
@@ -136,14 +136,20 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (_hasAnimator)
         {
-            //_animator.SetBool(_animIDDeath, false);
+            _animator.SetTrigger(_animDeathID);
         }
 
-        isAlive = false;
-        // myAnimator.SetTrigger("Die");
+        StartCoroutine(TimeToDie());
+        
+        //myAnimator.SetTrigger("Die");
         Debug.Log("Player is dead");
     }
 
+    IEnumerator TimeToDie()
+    {
+        yield return new WaitForSeconds(1);
+        isAlive = false;
+    }
     void Run()
     {
         // Multiply by _runSpeed to make the player run

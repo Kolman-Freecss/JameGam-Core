@@ -175,6 +175,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("You died. Game Over.");
         isGameOver = true;
         OnDeath?.Invoke();
+        yield return new WaitForSeconds(1);
+        
         SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler.DeathSceneName);   
     }
 

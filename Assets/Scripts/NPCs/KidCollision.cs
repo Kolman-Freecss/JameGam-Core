@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+
 public class KidCollision : MonoBehaviour
 {
     public float speed = 5f; 
