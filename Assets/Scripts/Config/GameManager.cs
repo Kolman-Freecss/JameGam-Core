@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     #region GameSession Variables
 
-    public int timeToDeath = 5;
+    public int timeToDeath = 15;
     public int meatScore = 0;
     public bool isGameOver = false;
 
@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
     public void RestartGameSession()
     {
         Instance.meatScore = 0;
-        Instance.timeToDeath = 5;
+        Instance.timeToDeath = 15;
         Instance.isGameOver = false;
         Instance.isPaused = false;
         Time.timeScale = 1;
