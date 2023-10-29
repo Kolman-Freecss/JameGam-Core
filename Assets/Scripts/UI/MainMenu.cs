@@ -31,28 +31,28 @@ public class MainMenu : MonoBehaviour
     {
         ButtonClick();
         SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler
-            .gameSceneName);
+            .GameSceneName);
     }
 
     public void Options()
     {
         ButtonClick();
         SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler
-            .optionsSceneName);
+            .OptionsSceneName);
     }
 
     public void Credits()
     {
         ButtonClick();
         SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler
-            .creditsSceneName);
+            .CreditsSceneName);
     }
 
     public void BackMainMenu()
     {
         ButtonClick();
         SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler
-            .defaultMainMenuSceneName);
+            .DefaultMainMenuSceneName);
     }
 
     public void ExitGame()

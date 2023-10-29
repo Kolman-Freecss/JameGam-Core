@@ -198,7 +198,7 @@ public class LeashGrab : MonoBehaviour
         {
             Destroy(_kid.gameObject.GetComponent<KidCollision>());
             Vector2 finalPosition = _kid.transform.position - this.gameObject.transform.position;
-            _kid.transform.Translate(-finalPosition * 15f * Time.deltaTime/6);
+            _kid.transform.Translate(-finalPosition * 15f * Time.deltaTime/3);
 
             //Destroy(_kid);
         }

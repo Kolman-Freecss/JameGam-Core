@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,12 +7,14 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] float levelLoadDelay = 1f;
 
+    #region GameSession Variables
+
     public int timeToDeath = 60;
     public int meatScore = 0;
     public bool isGameOver = false;
 
-   // [SerializeField] TextMeshProUGUI timeText;
-   // [SerializeField] TextMeshProUGUI meatText;
+    #endregion
+
    Coroutine _coroutineGameTimer;
 
     private bool isPaused;
@@ -25,7 +26,11 @@ public class GameManager : MonoBehaviour
 
     public delegate void PlayerDeath();
 
-    public event PlayerDeath OnGameOver;
+    public event PlayerDeath OnDeath;
+    
+    public delegate void GameOver();
+    
+    public static event GameOver OnGameOver;
     
     #region InitData
 
@@ -47,16 +52,17 @@ public class GameManager : MonoBehaviour
     {
         StartGame();
         SubscribeToDelegatesAndUpdateValues();
-        //timeText.text = timeToDeath.ToString();
-       // meatText.text = meatScore.ToString();
     }
     
     void SubscribeToDelegatesAndUpdateValues()
     {
         OnPauseGame += StopGame;
+        OnGameOver += RestartGameSession;
     }
 
     #endregion
+
+    #region Game Logic
 
     public void Update()
     {
@@ -64,18 +70,44 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-       // timeText.text = timeToDeath.ToString();
-        //meatText.text = meatScore.ToString();
     }
+    
+    public void AddScore()
+    {
+        meatScore++;
+    }
+
+    #endregion
+    
+    #region Manage Game Session
 
     public void StartGame()
     {
         _coroutineGameTimer = StartCoroutine(HandleGameOver());
     }
 
-    public void AddScore()
+    public void RestartGameEvent()
     {
-        meatScore++;
+        StartCoroutine(LoadGameReset());
+        OnGameOver?.Invoke();
+    }
+    
+    public void RestartGameSession()
+    {
+        meatScore = 0;
+        timeToDeath = 60;
+        isGameOver = false;
+    }
+
+    public void ExitGameSession()
+    {
+        RestartGameSession();
+        ExitGameSessionEvent();
+    }
+
+    public void ExitGameSessionEvent()
+    {
+        StartCoroutine(LoadExitSession());
     }
     
     public void StopGame(bool paused)
@@ -89,11 +121,6 @@ public class GameManager : MonoBehaviour
         }
     }
     
-    void ResetGameSession()
-    {
-        StartCoroutine(LoadGameReset());
-    }
-
     public void PauseGameEvent(bool paused)
     {
         isPaused = !paused;
@@ -107,8 +134,14 @@ public class GameManager : MonoBehaviour
         OnPauseGame?.Invoke(isPaused);
     }
 
+    #endregion
+
+
     #region Events
 
+    /**
+     * When the player dies, the game is over.
+     */
     IEnumerator HandleGameOver()
     {
         while (timeToDeath > 0)
@@ -117,18 +150,24 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(1);
             timeToDeath--;
         }
-        Debug.Log("Game Over");
+        Debug.Log("You died. Game Over.");
         isGameOver = true;
-        OnGameOver?.Invoke();
-        ResetGameSession();
+        OnDeath?.Invoke();
+        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler.DeathSceneName);   
     }
 
     IEnumerator LoadGameReset()
     {
         yield return new WaitForSecondsRealtime(levelLoadDelay);
         
-        SceneManager.LoadScene(0);
-        Destroy(gameObject);
+        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler.GameSceneName);
+    }
+    
+    IEnumerator LoadExitSession()
+    {
+        yield return new WaitForSecondsRealtime(levelLoadDelay);
+        
+        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler.DefaultMainMenuSceneName);
     }
 
     #endregion
