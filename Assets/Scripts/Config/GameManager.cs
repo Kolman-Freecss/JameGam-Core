@@ -139,6 +139,18 @@ public class GameManager : MonoBehaviour
 
     #region Events
 
+    public void OnNewGame()
+    {
+        SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
+        RestartGameEvent();
+    }
+    
+    public void OnExitMenu()
+    {
+        SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
+        ExitGameSession();
+    }
+    
     /**
      * When the player dies, the game is over.
      */
