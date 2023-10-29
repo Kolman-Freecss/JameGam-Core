@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace Config
 {
@@ -42,7 +43,15 @@ namespace Config
         
         private void Start()
         {
+            Init();
             SubscribeToDelegatesAndUpdateValues();
+        }
+
+        private void Init()
+        {
+            phase1Completed = false;
+            phase2Completed = false;
+            lastPhaseCompleted = false;
         }
         
         private void SubscribeToDelegatesAndUpdateValues()
