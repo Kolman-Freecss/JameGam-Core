@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Security.Cryptography;
 using Config;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -67,11 +68,17 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Start()
     {
+        Init();
         audioSource = GetComponent<AudioSource>();
         GetReferences();
         SubscribeToDelegatesAndUpdateValues();
         spriteRend = GetComponent<SpriteRenderer>();
         volume = PlayerPrefs.GetFloat("EffectsAudioPref");
+    }
+
+    void Init()
+    {
+        isAlive = true;
     }
 
     private void GetReferences()
