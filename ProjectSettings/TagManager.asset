@@ -7,6 +7,8 @@ TagManager:
   - Wall
   - Place
   - Kid
+  - Tag
+  - Rope
   layers:
   - Default
   - TransparentFX
