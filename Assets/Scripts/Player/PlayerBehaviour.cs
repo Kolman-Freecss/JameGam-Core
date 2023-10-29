@@ -1,8 +1,7 @@
+using System.Collections;
 using Config;
 using UnityEngine;
 using UnityEngine.Assertions;
-using System.Collections;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(CharacterInputs))]
 public class PlayerBehaviour : MonoBehaviour
@@ -39,6 +38,9 @@ public class PlayerBehaviour : MonoBehaviour
     private int _animWalkID;
     private int _animRunID;
     private int _animRightClickID;
+    
+    [HideInInspector]
+    public Interactable currentInteractable;
 
     #region Event Variables
 
@@ -88,6 +90,7 @@ public class PlayerBehaviour : MonoBehaviour
         GameManager.Instance.OnDeath += Die;
         _leashGrab.OnEatKid += GameManager.Instance.AddScore;
         GameManager.Instance.OnWinGame += WinGame;
+        Instance.Inputs.OnInteractTrigger += Interact;
     }
 
     private void UnsubscribeToDelegates()
@@ -107,6 +110,14 @@ public class PlayerBehaviour : MonoBehaviour
     #endregion
 
     #region Logic
+
+    public void Interact(bool pressed)
+    {
+        if (currentInteractable != null)
+        {
+            currentInteractable.Interact();
+        }
+    }
 
     void Update()
     {
