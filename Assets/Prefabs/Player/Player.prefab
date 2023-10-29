@@ -179,7 +179,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   PhaseManager: {fileID: 0}
+  audios:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   spriteRend: {fileID: 0}
+  bleeding: {fileID: 0}
+  triggerLocations: {fileID: 0}
 --- !u!114 &3529513366484298274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,6 +272,7 @@ MonoBehaviour:
   tie: {fileID: 0}
   leashInstance: {fileID: 0}
   tieInstance: {fileID: 0}
+  doorOpened: 0
 --- !u!114 &7555470829443838610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,3 +318,4 @@ MonoBehaviour:
   - {fileID: 4631510022906266501, guid: 659b59873ecd3144dac4f6a7ccf16e8a, type: 3}
   - {fileID: 4006411991627271414, guid: 08295d11a3e323c4397b08c86d769894, type: 3}
   - {fileID: 7338332096825729598, guid: c31567872168a3349989b49bb86f500b, type: 3}
+  bleeding: 0
