@@ -63,7 +63,7 @@ public class LeashGrab : MonoBehaviour
 
         if (_kid != null)
         {
-            if (Vector3.Distance(_player.transform.position, _kid.transform.position) <= 9f)
+            if (Vector3.Distance(_player.transform.position, _kid.transform.position) <= 13f)
             {
                 OnEatKid?.Invoke(1);
                 Destroy(_kid);
