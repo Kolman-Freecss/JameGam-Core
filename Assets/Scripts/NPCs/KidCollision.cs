@@ -13,6 +13,7 @@ public class KidCollision : MonoBehaviour
     bool running;
     [SerializeField] AudioClip[] audios = new AudioClip[3];
     AudioSource audioSource;
+    float volume;
 
     #region InitData
 
@@ -21,11 +22,16 @@ public class KidCollision : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         an = GetComponent<Animator>();
         rB = GetComponent<Rigidbody2D>();
+        audioSource.volume = volume;
+        volume = PlayerPrefs.GetFloat("EffectsAudioPref");
     }
 
     #endregion
 
-
+    private void Update()
+    {
+        Debug.Log(volume);
+    }
     private void FixedUpdate()
     {
         //Debug.Log(transform.position);
@@ -35,6 +41,8 @@ public class KidCollision : MonoBehaviour
     {
         if (other.tag == "Player" && !running)
         {
+            volume = PlayerPrefs.GetFloat("EffectsAudioPref");
+            audioSource.volume = volume;
             audioSource.clip = audios[Random.Range(0, 3)];
             audioSource.Play();
             running = true;
