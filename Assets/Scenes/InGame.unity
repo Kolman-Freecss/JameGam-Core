@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.25669003, g: 0.23532435, b: 0.17947623, a: 1}
+  m_IndirectSpecularColor: {r: 0.2566901, g: 0.23532435, b: 0.17947632, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -34325,6 +34325,10 @@ PrefabInstance:
       propertyPath: door
       value: 
       objectReference: {fileID: 1031121502}
+    - target: {fileID: 7643251766993202801, guid: 8cd55af1cc752834b99e3f8988cff149, type: 3}
+      propertyPath: rope
+      value: 
+      objectReference: {fileID: 67992548}
     - target: {fileID: 7643251766993202801, guid: 8cd55af1cc752834b99e3f8988cff149, type: 3}
       propertyPath: tomb
       value: 
