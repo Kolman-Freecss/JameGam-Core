@@ -1,28 +1,38 @@
+using System;
 using System.Collections;
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-
-    public int timeToDeath = 60;
-    public int meatScore = 0;
-
-    public bool isGameOver = false;
-
-   // [SerializeField] TextMeshProUGUI timeText;
-   // [SerializeField] TextMeshProUGUI meatText;
-
-    [SerializeField]private bool isPaused;
-
-    public delegate void PlayerDeath();
-
-    public event PlayerDeath OnGameOver;
     
     [SerializeField] float levelLoadDelay = 1f;
 
+    #region GameSession Variables
+
+    public int timeToDeath = 5; //60
+    public int meatScore = 0;
+    public bool isGameOver = false;
+
+    #endregion
+
+   Coroutine _coroutineGameTimer;
+
+    private bool isPaused;
+    public bool IsPaused => isPaused;
+    
+    public delegate void PauseGame(bool paused);
+    
+    public static event PauseGame OnPauseGame;
+
+    public delegate void PlayerDeath();
+
+    public event PlayerDeath OnDeath;
+    
+    public delegate void GameOver();
+    
+    public static event GameOver OnGameOver;
+    
     #region InitData
 
     private void Awake()
@@ -42,11 +52,24 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         StartGame();
-        //timeText.text = timeToDeath.ToString();
-       // meatText.text = meatScore.ToString();
+        SubscribeToDelegatesAndUpdateValues();
+    }
+    
+    void SubscribeToDelegatesAndUpdateValues()
+    {
+        OnPauseGame += StopGame;
+        OnGameOver += RestartGameSession;
+    }
+    
+    void UnsubscribeToDelegates()
+    {
+        OnPauseGame -= StopGame;
+        OnGameOver -= RestartGameSession;
     }
 
     #endregion
+
+    #region Game Logic
 
     public void Update()
     {
@@ -54,57 +77,130 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-       // timeText.text = timeToDeath.ToString();
-        //meatText.text = meatScore.ToString();
     }
-
-    public void StartGame()
-    {
-        StartCoroutine(HandleGameOver());
-    }
-
-    IEnumerator HandleGameOver()
-    {
-        while (timeToDeath > 0)
-        {
-         
-            yield return new WaitForSeconds(1);
-            timeToDeath--;
-        }
-        Debug.Log("Game Over");
-        isGameOver = true;
-        OnGameOver?.Invoke();
-        ResetGameSession();
-    }
-
+    
     public void AddScore()
     {
         meatScore++;
     }
+
+    #endregion
     
-    void ResetGameSession()
+    #region Manage Game Session
+
+    public void StartGame()
     {
-        StartCoroutine(LoadGameReset());
+        RestartGameSession();
+        _coroutineGameTimer = Instance.StartCoroutine(HandleGameOver());
     }
 
-    public void PauseGame()
+    public void RestartGameEvent()
     {
-        isPaused = true;
-        Time.timeScale = 0;
+        Instance.StartCoroutine(LoadGameReset());
+        OnGameOver?.Invoke();
+    }
+    
+    public void RestartGameSession()
+    {
+        meatScore = 0;
+        timeToDeath = 5;
+        isGameOver = false;
     }
 
-    public void ResumeGame()
+    public void ExitGameSession()
     {
-        isPaused = false;
-        Time.timeScale = 1;
+        RestartGameSession();
+        ExitGameSessionEvent();
+    }
+
+    public void ExitGameSessionEvent()
+    {
+        Instance.StartCoroutine(LoadExitSession());
+    }
+    
+    public void StopGame(bool paused)
+    {
+        if (paused)
+        {
+            StopCoroutine(_coroutineGameTimer);
+        } else
+        {
+            _coroutineGameTimer = Instance.StartCoroutine(HandleGameOver());
+        }
+    }
+    
+    public void PauseGameEvent(bool paused)
+    {
+        isPaused = !paused;
+        if (isPaused)
+        {
+            Time.timeScale = 0;
+        } else
+        {
+            Time.timeScale = 1;
+        }
+        OnPauseGame?.Invoke(isPaused);
+    }
+
+    #endregion
+
+
+    #region Events
+
+    public void OnNewGame()
+    {
+        SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
+        RestartGameEvent();
+    }
+    
+    public void OnExitMenu()
+    {
+        SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
+        ExitGameSession();
+    }
+    
+    /**
+     * When the player dies, the game is over.
+     */
+    IEnumerator HandleGameOver()
+    {
+        while (timeToDeath > 0)
+        {
+            yield return new WaitForSeconds(1);
+            timeToDeath--;
+        }
+        Debug.Log("You died. Game Over.");
+        isGameOver = true;
+        OnDeath?.Invoke();
+        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler.DeathSceneName);   
     }
 
     IEnumerator LoadGameReset()
     {
         yield return new WaitForSecondsRealtime(levelLoadDelay);
         
-        SceneManager.LoadScene(0);
-        Destroy(gameObject);
+        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler.GameSceneName);
     }
+    
+    IEnumerator LoadExitSession()
+    {
+        yield return new WaitForSecondsRealtime(levelLoadDelay);
+        
+        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler.DefaultMainMenuSceneName);
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log("GameManager destroyed");
+        UnsubscribeToDelegates();
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log("GameManager disabled");
+        UnsubscribeToDelegates();
+    }
+
+    #endregion
     
 }

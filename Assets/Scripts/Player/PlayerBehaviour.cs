@@ -11,12 +11,12 @@ public class PlayerBehaviour : MonoBehaviour
 
     Rigidbody2D rB;
     Vector2 inputMovement;
-    private float _runSpeed = 40f; 
+    private float _runSpeed = 40f;
     private bool _hasAnimator;
     private CharacterInputs _input;
     private Animator _animator;
     private bool isAlive = true;
-    
+
     // Animation IDs
     private int _animAttackID;
     private int _animDeathID;
@@ -40,7 +40,7 @@ public class PlayerBehaviour : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
+
     void Start()
     {
         SubscribeToDelegatesAndUpdateValues();
@@ -54,16 +54,20 @@ public class PlayerBehaviour : MonoBehaviour
         _hasAnimator = TryGetComponent(out _animator);
         _input = GetComponent<CharacterInputs>();
         rB = GetComponent<Rigidbody2D>();
-        //myAnimator = GetComponent<Animator>();
-        
+
         AssignAnimationIDs();
     }
 
     private void SubscribeToDelegatesAndUpdateValues()
     {
-        GameManager.Instance.OnGameOver += Die;
+        GameManager.Instance.OnDeath += Die;
     }
     
+    private void UnsubscribeToDelegates()
+    {
+        GameManager.Instance.OnDeath -= Die;
+    }
+
     private void AssignAnimationIDs()
     {
         _animAttackID = Animator.StringToHash("Attack");
@@ -74,6 +78,8 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
     #endregion
+
+    #region Logic
 
     void Update()
     {
@@ -87,17 +93,14 @@ public class PlayerBehaviour : MonoBehaviour
         Attack();
         if (_input.move.x != 0 || _input.move.y != 0)
         {
-            
-            
             _animator.SetBool(_animWalkID, true);
- 
         }
         else
         {
-            
             _animator.SetBool(_animWalkID, false);
         }
     }
+
     private void FixedUpdate()
     {
         rB.AddRelativeForce(new Vector2(inputMovement.x * speed, inputMovement.y * speed), ForceMode2D.Impulse);
@@ -111,13 +114,15 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 _animator.SetBool(_animAttackID, true);
             }
-            Debug.Log("Fire!");
-        } else if (_input.rightClick)
+
+        }
+        else if (_input.rightClick)
         {
             if (_hasAnimator)
             {
                 _animator.SetBool(_animRightClickID, true);
             }
+
             Debug.Log("Right Click!");
         }
     }
@@ -128,6 +133,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             return;
         }
+
         if (_hasAnimator)
         {
             //_animator.SetBool(_animIDDeath, false);
@@ -147,7 +153,7 @@ public class PlayerBehaviour : MonoBehaviour
             _animator.SetBool(_animWalkID, false);
             _animator.SetBool(_animRunID, false);
         }
-        
+
         Vector2 playerVelocity = new Vector2(_input.move.x * targetSpeed, _input.move.y * targetSpeed);
         rB.velocity = playerVelocity;
 
@@ -166,4 +172,16 @@ public class PlayerBehaviour : MonoBehaviour
             spriteRend.flipX = false;
         }
     }
+
+    #endregion
+
+    #region Event Functions
+
+    private void OnDestroy()
+    {
+        Debug.Log("Player destroyed");
+        UnsubscribeToDelegates();
+    }
+
+    #endregion
 }

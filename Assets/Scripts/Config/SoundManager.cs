@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(AudioSource))]
 public class SoundManager : MonoBehaviour
@@ -6,18 +7,19 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance { get; private set; }
 
     private static readonly string FirstPlay = "FirstPlay";
-    public AudioClip buttonSound;
+    [FormerlySerializedAs("buttonAudioSource")] public AudioClip buttonClip;
     public AudioClip[] backgroundMusic;
     
-    [Range(0, 100)] public float EffectsAudioVolume = 50f;
-    [Range(0, 100)] public float MusicAudioVolume = 40f;
+    [Range(0, 1)] public float EffectsAudioVolume = .5f;
+    [Range(0, 1)] public float MusicAudioVolume = .4f;
     
     private int firstPlayInt;
     
     private static readonly string MusicAudioPref = "MusicAudioPref";
     private static readonly string EffectsAudioPref = "EffectsAudioPref";
     
-    private AudioSource _backgroundAudio;
+    [SerializeField] private AudioSource backgroundAudio;
+    [SerializeField] private AudioSource buttonAudioSource;
 
     #region InitData
 
@@ -28,28 +30,27 @@ public class SoundManager : MonoBehaviour
     
     void Start()
     {
+        Debug.Log("Loading Sounds...");
         GetReferences();
-        //Para incluir el event system
         firstPlayInt = PlayerPrefs.GetInt(FirstPlay);
         if (firstPlayInt == 0)
         {
-            MusicAudioVolume = .125f;
-            EffectsAudioVolume = .75f;
-            SetMusicVolume(MusicAudioVolume);
-            SetEffectsVolume(EffectsAudioVolume);
+            SetMusicVolume(.5f);
+            SetEffectsVolume(.5f);
             PlayerPrefs.SetInt(FirstPlay, -1);
         }
         else
         {
-            MusicAudioVolume = PlayerPrefs.GetFloat(MusicAudioPref);
-            EffectsAudioVolume = PlayerPrefs.GetFloat(EffectsAudioPref);
+            SetMusicVolume(PlayerPrefs.GetFloat(MusicAudioPref));
+            SetEffectsVolume(PlayerPrefs.GetFloat(EffectsAudioPref));
         }
         StartBackgroundMusic(0);
     }
     
     private void GetReferences()
     {
-        _backgroundAudio = GetComponent<AudioSource>();
+        buttonAudioSource.clip = buttonClip;
+        //backgroundAudio = GetComponent<AudioSource>();
     }
 
     void ManageSingleton()
@@ -70,19 +71,24 @@ public class SoundManager : MonoBehaviour
 
     public void StartBackgroundMusic(int clip)
     {
-        _backgroundAudio.clip = backgroundMusic[clip];
-        _backgroundAudio.Play();
+        backgroundAudio.clip = backgroundMusic[clip];
+        backgroundAudio.Play();
     }
-    
+
+    #region Getters & Setters
+
     public void SetEffectsVolume(float volume)
     {
         PlayerPrefs.SetFloat(EffectsAudioPref, volume);
+        EffectsAudioVolume = volume;
+        buttonAudioSource.volume = volume;
     }
     
     public void SetMusicVolume(float volume)
     {
         PlayerPrefs.SetFloat(MusicAudioPref, volume);
-        this.MusicAudioVolume = volume;
+        MusicAudioVolume = volume;
+        backgroundAudio.volume = volume;
     }
     
     public float GetSoundVolume()
@@ -94,6 +100,8 @@ public class SoundManager : MonoBehaviour
     {
         return MusicAudioVolume;
     }
+
+    #endregion
     
     public void SaveSoundSettings()
     {
@@ -101,14 +109,9 @@ public class SoundManager : MonoBehaviour
         PlayerPrefs.SetFloat(EffectsAudioPref, EffectsAudioVolume);
     }
 
-    public void UpdateSound(float musicVolume, float soundEffectsVolume)
-    {
-        this.MusicAudioVolume = musicVolume;
-        this.EffectsAudioVolume = soundEffectsVolume;
-    }
-
     public void PlayButtonClickSound(Vector3 position)
     {
-        AudioSource.PlayClipAtPoint(buttonSound, transform.position);
+        buttonAudioSource.Play();
+        //AudioSource.PlayClipAtPoint(buttonClip, transform.position, EffectsAudioVolume);
     }
 }

@@ -30,8 +30,13 @@ public class AudioSettings : MonoBehaviour
         }
     }
 
-    public void UpdateSound()
+    public void UpdateEffectsSound()
     {
-        SoundManager.Instance.UpdateSound(musicSlider.value, soundEffectsSlider.value);
+        SoundManager.Instance.SetEffectsVolume(soundEffectsSlider.value);
+    }
+
+    public void UpdateMusicSound()
+    {
+        SoundManager.Instance.SetMusicVolume(musicSlider.value);
     }
 }
