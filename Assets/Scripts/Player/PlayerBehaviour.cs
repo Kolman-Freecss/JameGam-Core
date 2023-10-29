@@ -23,6 +23,7 @@ public class PlayerBehaviour : MonoBehaviour
     [HideInInspector]
     public TriggerLocations triggerLocations;
     bool screaming;
+    float volume;
 
     #endregion
 
@@ -68,6 +69,7 @@ public class PlayerBehaviour : MonoBehaviour
         GetReferences();
         SubscribeToDelegatesAndUpdateValues();
         spriteRend = GetComponent<SpriteRenderer>();
+        volume = PlayerPrefs.GetFloat("EffectsAudioPref");
     }
 
     private void GetReferences()
@@ -153,6 +155,8 @@ public class PlayerBehaviour : MonoBehaviour
         {
             if (!screaming)
             {
+                volume = PlayerPrefs.GetFloat("EffectsAudioPref");
+                audioSource.volume = volume * 0.6f;
                 audioSource.clip = audios[Random.Range(0, 3)];
                 audioSource.Play();
                 StartCoroutine(ScreamCD());
