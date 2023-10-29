@@ -14,6 +14,7 @@ public class CharacterInputs : MonoBehaviour
     public bool escape;
 
     public event Action<bool> OnEscapeTrigger;
+    public event Action<bool> OnRightClickTrigger;
 
     public void OnMove(InputValue value)
     {
@@ -68,6 +69,7 @@ public class CharacterInputs : MonoBehaviour
     public void RightClickInput(bool newRightClickState)
     {
         rightClick = newRightClickState;
+        OnRightClickTrigger?.Invoke(rightClick);
     }
     
     public void EscapeInput(bool newEscapeState)

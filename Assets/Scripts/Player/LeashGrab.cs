@@ -25,6 +25,7 @@ public class LeashGrab : MonoBehaviour
     public Transform leashInstance;
     public Transform tieInstance;
     private Vector3 _zipPosition;
+    public bool doorOpened = false;
 
     #region Event Variables
 
@@ -67,6 +68,9 @@ public class LeashGrab : MonoBehaviour
                 OnEatKid?.Invoke(1);
                 Destroy(_kid);
             }
+            if(Input.GetMouseButtonUp(0) && doorOpened){
+                _kid = null;
+            }
         }
     }
 
@@ -76,6 +80,7 @@ public class LeashGrab : MonoBehaviour
     {
         switch (_state)
         {
+
             case State.Normal:
                 HandleStartZip();
                 break;
@@ -92,7 +97,7 @@ public class LeashGrab : MonoBehaviour
 
     void HandleStartZip()
     {
-        if (_player.Inputs.rightClick) // && !_zipping
+        if (Input.GetMouseButtonDown(0) && doorOpened) // && !_zipping
         {
             _zipLineTargetPosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             _zipLineTargetPosition.z = 0;
@@ -144,12 +149,14 @@ public class LeashGrab : MonoBehaviour
                     */
                     Vector2 finalVector =
                         new Vector2(Vector3.Distance(_player.transform.position, _zipLineTargetPosition), 0f);
+                    Vector2 finalColliderVector = new Vector2(Vector3.Distance(_player.transform.position, _zipLineTargetPosition), 0f);
+                    finalColliderVector.Normalize();
                     finalVector.Normalize();
                     //tieInstance.transform.Translate(Vector2.Lerp(_leashStart, finalVector * 30f, timeToReachTarget));
                     // vectorCortado.Normalize();
                     //leashSpriteRenderer.size = Vector2.Lerp(_leashStart, leashEnd * 50f, timeToReachTarget);
                     leashSpriteRenderer.size = Vector2.Lerp(_leashStart, finalVector * 30f, timeToReachTarget);
-                    //leashCollider.size = Vector2.Lerp(leashColliderStart, -vectorCortado * 5f, timeToReachTarget);
+                    leashCollider.size = Vector2.Lerp(leashColliderStart, -finalColliderVector * 30f, timeToReachTarget);
                 }
                 else
                 {
@@ -202,7 +209,6 @@ public class LeashGrab : MonoBehaviour
             Destroy(_kid.gameObject.GetComponent<KidCollision>());
             Vector2 finalPosition = _kid.transform.position - this.gameObject.transform.position;
             _kid.transform.Translate(-finalPosition * 15f * Time.deltaTime / 3);
-
             //Destroy(_kid);
         }
     }
