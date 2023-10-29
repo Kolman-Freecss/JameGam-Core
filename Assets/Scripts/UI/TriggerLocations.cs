@@ -32,7 +32,7 @@ public class TriggerLocations : MonoBehaviour
         if (makeZoom)
         {
             Debug.Log("Entra");
-            mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, Random.Range(minZoom, maxZoom), Time.deltaTime * zoomSpeed);
+            mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, maxZoom, Time.deltaTime * zoomSpeed);
             if (mainCamera.orthographicSize == finalZoom) makeZoom = false;
         }
 
@@ -58,31 +58,31 @@ public class TriggerLocations : MonoBehaviour
                         PhaseOneCompleted?.Invoke(true);
                     }
                     minZoom *= 1f;
-                    maxZoom *= 2f;
+                    maxZoom *= 1.3f;
                     finalZoom = Random.Range(minZoom, maxZoom);
                     makeZoom = true;
                     break;
                 case "Street":
                     minZoom *= 1f;
-                    maxZoom *= 2f;
-                    finalZoom = Random.Range(minZoom, maxZoom);
+                    maxZoom *= 1.3f;
+                    //finalZoom = Random.Range(minZoom, maxZoom);
                     makeZoom = true;
                     break;
                 case "School":
                     minZoom /= 1f;
-                    maxZoom /= 2f;
+                    maxZoom /= 1.3f;
                     finalZoom = Random.Range(minZoom, maxZoom);
                     makeZoom = true;
                     break;
                 case "Park":
                     minZoom *= 1f;
-                    maxZoom *= 2f;
+                    maxZoom *= 1.3f;
                     finalZoom = Random.Range(minZoom, maxZoom);
                     makeZoom = true;
                     break;
                 case "Road":
                     minZoom *= 1f;
-                    maxZoom *= 2f;
+                    maxZoom *= 1.3f;
                     finalZoom = Random.Range(minZoom, maxZoom);
                     makeZoom = true;
                     break;

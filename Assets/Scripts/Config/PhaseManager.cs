@@ -19,6 +19,7 @@ namespace Config
         [SerializeField] GameObject doorClosed;
         [SerializeField] GameObject doorOpened;
         [SerializeField] private GameObject canvasNote;
+        [SerializeField] private GameObject rope;
         public bool noteOpened;
 
         #endregion
@@ -53,6 +54,7 @@ namespace Config
         
         public void OpenDoor()
         {
+            rope.GetComponent<LeashGrab>().doorOpened = true;
             doorClosed.SetActive(false);
             doorOpened.SetActive(true);
         }
@@ -77,6 +79,11 @@ namespace Config
         {
             canvasNote.SetActive(true);
             ReadNote();
+        }
+
+        public void GrabRope()
+        {
+
         }
         
         #endregion
