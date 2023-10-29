@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NoteTrigger : MonoBehaviour
@@ -14,7 +15,10 @@ public class NoteTrigger : MonoBehaviour
     
     private void OnTriggerExit2D(Collider2D other)
     {
-        canvasReadNote.SetActive(false);
+        if (canvasReadNote != null)
+        {
+            canvasReadNote.SetActive(false);
+        }
     }
     
 }

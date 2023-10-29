@@ -90,12 +90,13 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        _coroutineGameTimer = StartCoroutine(HandleGameOver());
+        RestartGameSession();
+        _coroutineGameTimer = Instance.StartCoroutine(HandleGameOver());
     }
 
     public void RestartGameEvent()
     {
-        StartCoroutine(LoadGameReset());
+        Instance.StartCoroutine(LoadGameReset());
         OnGameOver?.Invoke();
     }
     
@@ -114,7 +115,7 @@ public class GameManager : MonoBehaviour
 
     public void ExitGameSessionEvent()
     {
-        StartCoroutine(LoadExitSession());
+        Instance.StartCoroutine(LoadExitSession());
     }
     
     public void StopGame(bool paused)
@@ -124,7 +125,7 @@ public class GameManager : MonoBehaviour
             StopCoroutine(_coroutineGameTimer);
         } else
         {
-            _coroutineGameTimer = StartCoroutine(HandleGameOver());
+            _coroutineGameTimer = Instance.StartCoroutine(HandleGameOver());
         }
     }
     
