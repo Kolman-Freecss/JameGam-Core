@@ -44,6 +44,8 @@ public class TriggerLocations : MonoBehaviour
                 case "Room":
                     minZoom = mainCamera.orthographicSize;
                     maxZoom = mainCamera.orthographicSize;
+                    finalZoom = Random.Range(minZoom, maxZoom);
+                    makeZoom = true;
                     break;
                 case "Main Zone":
                     minZoom *= 1f;
