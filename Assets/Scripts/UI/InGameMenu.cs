@@ -15,7 +15,7 @@ public class InGameMenu : MonoBehaviour
     void Start()
     {
         Init();
-        PlayerBehaviour.Instance.Inputs.OnEscapeTrigger += OnPressEscape;
+        //PlayerBehaviour.Instance.Inputs.OnEscapeTrigger += OnPressEscape;
     }
 
     void Init()
@@ -30,11 +30,21 @@ public class InGameMenu : MonoBehaviour
 
     #endregion
 
-    void OnPressEscape(bool pressed)
+    //void OnPressEscape(bool pressed)
+    //{
+    //    if (PlayerBehaviour.Instance.Inputs.escape)
+    //    {
+    //        PauseGame(GameManager.Instance.IsPaused);
+    //    }
+    //}
+    private void Update()
     {
-        if (PlayerBehaviour.Instance.Inputs.escape)
+        if(Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseGame(GameManager.Instance.IsPaused);
+            if (PlayerBehaviour.Instance.Inputs.escape)
+            {
+                PauseGame(GameManager.Instance.IsPaused);
+            }
         }
     }
 
