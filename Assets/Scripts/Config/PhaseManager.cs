@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.Serialization;
 
 namespace Config
 {
@@ -23,8 +24,10 @@ namespace Config
         [SerializeField] GameObject doorClosed;
         [SerializeField] GameObject doorOpened;
         [SerializeField] private GameObject canvasNote;
+        [SerializeField] private GameObject _player;
         [SerializeField] private GameObject rope;
         public bool noteOpened;
+        public bool ropeGrabbed;
 
         #endregion
 
@@ -53,6 +56,8 @@ namespace Config
             phase1Completed = false;
             phase2Completed = false;
             lastPhaseCompleted = false;
+            ropeGrabbed = false;
+            noteOpened = false;
         }
         
         private void SubscribeToDelegatesAndUpdateValues()
@@ -72,13 +77,18 @@ namespace Config
         
         public void OpenDoor()
         {
-            rope.GetComponent<LeashGrab>().doorOpened = true;
+            _player.GetComponent<LeashGrab>().doorOpened = true;
             doorClosed.SetActive(false);
             doorOpened.SetActive(true);
         }
         
         public void ReadNote()
         {
+            if (!ropeGrabbed)
+            {
+                ropeGrabbed = true;
+                Destroy(rope);
+            }
             if (!noteOpened)
             {
                 OpenDoor();
