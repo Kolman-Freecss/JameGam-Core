@@ -19,7 +19,9 @@ public class GameManager : MonoBehaviour
 
     private bool isPaused;
     public bool IsPaused => isPaused;
-    
+
+    #region Event Variables
+
     public delegate void PauseGame(bool paused);
     
     public static event PauseGame OnPauseGame;
@@ -31,6 +33,8 @@ public class GameManager : MonoBehaviour
     public delegate void GameOver();
     
     public static event GameOver OnGameOver;
+
+    #endregion
     
     #region InitData
 
@@ -78,9 +82,12 @@ public class GameManager : MonoBehaviour
         }
     }
     
-    public void AddScore()
+    /**
+     * Invoke this method when the player eat on LeashGrab.cs
+     */
+    public void AddScore(int score)
     {
-        meatScore++;
+        meatScore += score;
     }
 
     #endregion

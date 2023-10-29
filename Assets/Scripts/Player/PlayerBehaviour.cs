@@ -1,3 +1,4 @@
+using Config;
 using UnityEngine;
 using UnityEngine.Assertions;
 using System.Collections;
@@ -6,9 +7,11 @@ using System.Collections;
 public class PlayerBehaviour : MonoBehaviour
 {
     [SerializeField] float speed = 20f;
+    [SerializeField] PhaseManager PhaseManager;
     public static PlayerBehaviour Instance { get; private set; }
     public CharacterInputs Inputs => _input;
     public SpriteRenderer spriteRend;
+    private LeashGrab _leashGrab;
 
     Rigidbody2D rB;
     Vector2 inputMovement;
@@ -23,6 +26,11 @@ public class PlayerBehaviour : MonoBehaviour
     private int _animWalkID;
     private int _animRunID;
     private int _animRightClickID;
+
+    #region Event Variables
+
+
+    #endregion
 
     #region InitData
 
@@ -54,6 +62,7 @@ public class PlayerBehaviour : MonoBehaviour
         _hasAnimator = TryGetComponent(out _animator);
         _input = GetComponent<CharacterInputs>();
         rB = GetComponent<Rigidbody2D>();
+        _leashGrab = GetComponent<LeashGrab>();
 
         AssignAnimationIDs();
     }
@@ -61,6 +70,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void SubscribeToDelegatesAndUpdateValues()
     {
         GameManager.Instance.OnDeath += Die;
+        _leashGrab.OnEatKid += GameManager.Instance.AddScore;
     }
 
     private void UnsubscribeToDelegates()
