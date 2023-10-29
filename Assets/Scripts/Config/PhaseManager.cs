@@ -126,8 +126,8 @@ namespace Config
                 if (DisplaySettings.Instance.blood)
                 {
                     PlayerBehaviour.Instance.bleeding.StartBleed();
-                    GameManager.Instance.InitHandleGameOver();
                 }
+                GameManager.Instance.InitHandleGameOver();
             }
         }
 

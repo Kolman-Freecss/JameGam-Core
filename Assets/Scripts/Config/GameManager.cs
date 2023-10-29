@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
         {
             StopHandleGameOver();
         }
-        else
+        else if (PlayerBehaviour.Instance != null && PlayerBehaviour.Instance.PhaseManager.phase1Completed)
         {
             Instance._coroutineGameTimer = Instance.StartCoroutine(HandleGameOver());
         }
@@ -165,8 +165,8 @@ public class GameManager : MonoBehaviour
 
     public void PauseGameEvent(bool paused)
     {
-        Instance.isPaused = !paused;
-        if (isPaused)
+        Instance.isPaused = !Instance.isPaused;
+        if (Instance.isPaused)
         {
             Time.timeScale = 0;
         }
@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
         }
 
-        OnPauseGame?.Invoke(isPaused);
+        OnPauseGame?.Invoke(Instance.isPaused);
     }
 
     public void WinGameEvent()
