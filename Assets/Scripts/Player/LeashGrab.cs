@@ -203,6 +203,7 @@ public class LeashGrab : MonoBehaviour
             SetStateNormal();
         }
 
+        Debug.Log(_kid);
         if (_kid != null)
         {
             Destroy(_kid.gameObject.GetComponent<KidCollision>());
