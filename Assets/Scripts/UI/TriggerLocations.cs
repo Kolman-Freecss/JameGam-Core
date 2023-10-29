@@ -23,8 +23,8 @@ public class TriggerLocations : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-            Debug.Log("entro al trigger");
-        // Verifica si el objeto que colisionó tiene la etiqueta "Lugar"
+            Debug.Log("Trigger TriggerLocation");
+        // Verifica si el objeto que colisionï¿½ tiene la etiqueta "Lugar"
         if (collision.gameObject.layer == LayerMask.NameToLayer("Places"))
         {
             // Actualiza el texto con el nombre del lugar

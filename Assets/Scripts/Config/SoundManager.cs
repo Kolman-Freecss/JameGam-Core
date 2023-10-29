@@ -111,7 +111,6 @@ public class SoundManager : MonoBehaviour
 
     public void PlayButtonClickSound(Vector3 position)
     {
-        Debug.Log("PlayButtonClickSound"+EffectsAudioVolume);
         buttonAudioSource.Play();
         //AudioSource.PlayClipAtPoint(buttonClip, transform.position, EffectsAudioVolume);
     }

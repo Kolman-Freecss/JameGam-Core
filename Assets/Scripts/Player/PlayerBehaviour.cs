@@ -108,7 +108,6 @@ public class PlayerBehaviour : MonoBehaviour
                 _animator.SetBool(_animAttackID, true);
             }
 
-            Debug.Log("Fire!");
         }
         else if (_input.rightClick)
         {
