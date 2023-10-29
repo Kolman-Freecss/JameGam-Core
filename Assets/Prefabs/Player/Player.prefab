@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 1879754816719343124}
   - component: {fileID: 7141764642078917605}
   - component: {fileID: 7555470829443838610}
+  - component: {fileID: 3811244151196577902}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -177,6 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  PhaseManager: {fileID: 0}
   spriteRend: {fileID: 0}
 --- !u!114 &3529513366484298274
 MonoBehaviour:
@@ -288,3 +290,23 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   textPlaces: {fileID: 0}
+  mainCamera: {fileID: 0}
+  zoomSpeed: 1.5
+  minZoom: 0
+  maxZoom: 0
+--- !u!114 &3811244151196577902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2015691734227074136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f246684c9d2dd9645ae0e5bd5928301c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blood:
+  - {fileID: 4631510022906266501, guid: 659b59873ecd3144dac4f6a7ccf16e8a, type: 3}
+  - {fileID: 4006411991627271414, guid: 08295d11a3e323c4397b08c86d769894, type: 3}
+  - {fileID: 7338332096825729598, guid: c31567872168a3349989b49bb86f500b, type: 3}

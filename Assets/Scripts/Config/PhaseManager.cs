@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Config
 {
@@ -10,6 +9,11 @@ namespace Config
     //TODO: Move to subclasses (Phase1Manager, Phase2Manager, etc)
     public class PhaseManager : MonoBehaviour
     {
+        [HideInInspector]
+        public bool phase1Completed = false;
+        [HideInInspector]
+        public bool phase2Completed = false;
+        
         #region Phase1 Variables
 
         [SerializeField] GameObject door;
@@ -24,6 +28,16 @@ namespace Config
         {
             noteOpened = false;
             CloseDoor();
+        }
+        
+        private void Start()
+        {
+            SubscribeToDelegatesAndUpdateValues();
+        }
+        
+        private void SubscribeToDelegatesAndUpdateValues()
+        {
+            PlayerBehaviour.Instance.triggerLocations.PhaseOneCompleted += StartPhase2;
         }
 
         #endregion
@@ -62,6 +76,19 @@ namespace Config
             ReadNote();
         }
         
+        #endregion
+
+        #region Phase2 Logic
+
+        public void StartPhase2(bool startPhase2)
+        {
+            if (startPhase2)
+            {
+                phase1Completed = true;
+                PlayerBehaviour.Instance.bleeding.StartBleed();
+            }
+        }
+
         #endregion
         
     }

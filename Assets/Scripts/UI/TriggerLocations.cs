@@ -1,9 +1,7 @@
-using System.Threading;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+using System;
 using TMPro;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class TriggerLocations : MonoBehaviour
 {
@@ -16,6 +14,13 @@ public class TriggerLocations : MonoBehaviour
     public float maxZoom = 0f; // El nivel máximo de zoom
     bool makeZoom = false;
     float finalZoom;
+
+    #region Event Variables
+
+    public event Action<bool> PhaseOneCompleted; 
+
+    #endregion
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +53,10 @@ public class TriggerLocations : MonoBehaviour
                     makeZoom = true;
                     break;
                 case "Main Zone":
+                    if (!PlayerBehaviour.Instance.PhaseManager.phase1Completed)
+                    {
+                        PhaseOneCompleted?.Invoke(true);
+                    }
                     minZoom *= 1f;
                     maxZoom *= 2f;
                     finalZoom = Random.Range(minZoom, maxZoom);

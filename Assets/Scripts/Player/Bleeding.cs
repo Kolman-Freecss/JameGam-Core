@@ -1,18 +1,32 @@
 using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bleeding : MonoBehaviour
 {
     [SerializeField] GameObject[] blood = new GameObject[3];
-    private void Start()
+    public bool bleeding = false;
+    private Coroutine _bleedCoroutine;
+    
+    public void StartBleed()
     {
-        StartCoroutine(BloodDrops());
+        bleeding = true;
+        _bleedCoroutine = StartCoroutine(BloodDrops());
     }
+    
+    public void StopBleed()
+    {
+        bleeding = false;
+        StopCoroutine(_bleedCoroutine);
+    }
+    
     IEnumerator BloodDrops()
     {
         yield return new WaitForSeconds(1);
         Instantiate(blood[Random.Range(0, 3)], new Vector3(transform.position.x, transform.position.y - 4, transform.position.z), Quaternion.identity);
-        StartCoroutine(BloodDrops());
+        if (bleeding)
+        {
+            StartCoroutine(BloodDrops());
+        }
     }
 }

@@ -2,16 +2,26 @@ using Config;
 using UnityEngine;
 using UnityEngine.Assertions;
 using System.Collections;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(CharacterInputs))]
 public class PlayerBehaviour : MonoBehaviour
 {
     [SerializeField] float speed = 20f;
-    [SerializeField] PhaseManager PhaseManager;
+    [SerializeField] public PhaseManager PhaseManager;
     public static PlayerBehaviour Instance { get; private set; }
+
+    #region Player Components
+
     public CharacterInputs Inputs => _input;
     public SpriteRenderer spriteRend;
     private LeashGrab _leashGrab;
+    [HideInInspector]
+    public Bleeding bleeding;
+    [HideInInspector]
+    public TriggerLocations triggerLocations;
+
+    #endregion
 
     Rigidbody2D rB;
     Vector2 inputMovement;
@@ -63,6 +73,8 @@ public class PlayerBehaviour : MonoBehaviour
         _input = GetComponent<CharacterInputs>();
         rB = GetComponent<Rigidbody2D>();
         _leashGrab = GetComponent<LeashGrab>();
+        bleeding = GetComponent<Bleeding>();
+        triggerLocations = GetComponent<TriggerLocations>();
 
         AssignAnimationIDs();
     }
