@@ -134,7 +134,6 @@ public class LeashGrab : MonoBehaviour
                 timeToReachTarget += Time.deltaTime * 6f;
 
 
-                Debug.Log(Vector3.Distance(_player.transform.position, _zipLineTargetPosition));
                 if (Vector3.Distance(_player.transform.position, _zipLineTargetPosition) > 10f)
                 {
                     /*

@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     public delegate void WinGame();
     
-    public static event WinGame OnWinGame;
+    public event WinGame OnWinGame;
 
     #endregion
     

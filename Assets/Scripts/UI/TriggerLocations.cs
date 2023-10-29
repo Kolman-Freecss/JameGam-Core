@@ -99,6 +99,7 @@ public class TriggerLocations : MonoBehaviour
                     }
                     break;
                 case "tomb":
+                    Debug.Log("Win");
                     PlayerBehaviour.Instance.PhaseManager.WinGame();
                     break;
             }
