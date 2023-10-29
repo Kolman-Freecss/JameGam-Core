@@ -16,7 +16,7 @@ public class SpriteLayers : MonoBehaviour
 
     void Update()
     {
-        if(player.transform.position.y > -74)
+        if(player.transform.position.y > -76)
         {
             wall.SetActive(false); 
         }

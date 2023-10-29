@@ -93,6 +93,7 @@ public class GameManager : MonoBehaviour
     public void AddScore(int score)
     {
         meatScore += score;
+        timeToDeath += 5;
     }
 
     #endregion
@@ -105,14 +106,16 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         RestartGameSession();
-        //TODO: Put this routine when you exit from the first zone.
-        _coroutineGameTimer = Instance.StartCoroutine(HandleGameOver());
     }
 
     public void RestartGameEvent()
     {
         Instance.StartCoroutine(LoadGameReset());
         OnGameOver?.Invoke();
+    }
+
+    public void InitHandleGameOver()
+    {
         _coroutineGameTimer = Instance.StartCoroutine(HandleGameOver());
     }
     
