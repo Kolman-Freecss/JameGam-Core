@@ -14,6 +14,7 @@ public class TriggerLocations : MonoBehaviour
     public float maxZoom = 0f; // El nivel máximo de zoom
     bool makeZoom = false;
     bool returnSchool = false;
+    bool returnGraveyard = false;
     float finalZoom;
 
     #region Event Variables
@@ -96,6 +97,22 @@ public class TriggerLocations : MonoBehaviour
                         maxZoom /= 1.3f;
                         makeZoom = true;
                         returnSchool = false;
+                    }
+                    break;
+                case "Graveyard":
+                    if (returnGraveyard)
+                    {
+                        minZoom *= 1f;
+                        maxZoom *= 1.3f;
+                        finalZoom = Random.Range(minZoom, maxZoom);
+                        returnGraveyard = false;
+                    }
+                    else
+                    {
+                        minZoom /= 1f;
+                        maxZoom /= 1.3f;
+                        makeZoom = true;
+                        returnGraveyard = true;
                     }
                     break;
                 case "tomb":

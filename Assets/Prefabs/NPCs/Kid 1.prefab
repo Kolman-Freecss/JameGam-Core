@@ -209,7 +209,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c742f4a671747b14989d2bd656513154, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 30
+  audios:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!70 &3624789387904283031
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
