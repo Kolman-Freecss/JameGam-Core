@@ -230,12 +230,12 @@ public class GameManager : MonoBehaviour
     IEnumerator HandleWinEvent()
     {
         Instance.isGameOver = true;
-        Debug.Log("You win. Game Over.");
-        StopHandleGameOver();
+        
         yield return new WaitForSeconds(gameWinDelay);
 
         SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler
             .WinSceneName);
+        StopHandleGameOver();
     }
 
     IEnumerator LoadGameReset()
