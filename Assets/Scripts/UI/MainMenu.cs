@@ -30,6 +30,7 @@ public class MainMenu : MonoBehaviour
     public void NewGame()
     {
         ButtonClick();
+        GameManager.Instance.StartGame();
         SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler
             .GameSceneName);
     }

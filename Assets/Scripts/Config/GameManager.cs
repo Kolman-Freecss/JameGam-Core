@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -51,7 +50,7 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        StartGame();
+        RestartGameSession();
         SubscribeToDelegatesAndUpdateValues();
     }
     
@@ -88,9 +87,13 @@ public class GameManager : MonoBehaviour
     
     #region Manage Game Session
 
+    /**
+     * Invoke this method when you start a new game.
+     */
     public void StartGame()
     {
         RestartGameSession();
+        //TODO: Put this routine when you exit from the first zone.
         _coroutineGameTimer = Instance.StartCoroutine(HandleGameOver());
     }
 
@@ -98,13 +101,14 @@ public class GameManager : MonoBehaviour
     {
         Instance.StartCoroutine(LoadGameReset());
         OnGameOver?.Invoke();
+        _coroutineGameTimer = Instance.StartCoroutine(HandleGameOver());
     }
     
     public void RestartGameSession()
     {
-        meatScore = 0;
-        timeToDeath = 5;
-        isGameOver = false;
+        Instance.meatScore = 0;
+        Instance.timeToDeath = 5;
+        Instance.isGameOver = false;
     }
 
     public void ExitGameSession()
@@ -131,7 +135,7 @@ public class GameManager : MonoBehaviour
     
     public void PauseGameEvent(bool paused)
     {
-        isPaused = !paused;
+        Instance.isPaused = !paused;
         if (isPaused)
         {
             Time.timeScale = 0;
@@ -143,7 +147,6 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
-
 
     #region Events
 
@@ -164,10 +167,10 @@ public class GameManager : MonoBehaviour
      */
     IEnumerator HandleGameOver()
     {
-        while (timeToDeath > 0)
+        while (Instance.timeToDeath > 0)
         {
             yield return new WaitForSeconds(1);
-            timeToDeath--;
+            Instance.timeToDeath--;
         }
         Debug.Log("You died. Game Over.");
         isGameOver = true;
