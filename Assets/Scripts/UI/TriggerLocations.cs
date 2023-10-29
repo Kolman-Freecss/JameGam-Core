@@ -17,27 +17,22 @@ public class TriggerLocations : MonoBehaviour
 
     #region Event Variables
 
-    public event Action<bool> PhaseOneCompleted; 
+    public event Action<bool> PhaseOneCompleted;
 
     #endregion
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
-    // Update is called once per frame
     void Update()
     {
         if (makeZoom)
         {
             Debug.Log("Entra");
-            mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, maxZoom, Time.deltaTime * zoomSpeed);
+            mainCamera.orthographicSize = Mathf.Lerp(mainCamera.orthographicSize, Random.Range(minZoom, maxZoom),
+                Time.deltaTime * zoomSpeed);
             if (mainCamera.orthographicSize == finalZoom) makeZoom = false;
         }
-
     }
 
+    //TODO: Shit. Perform this :)
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Trigger TriggerLocation");
@@ -57,6 +52,7 @@ public class TriggerLocations : MonoBehaviour
                     {
                         PhaseOneCompleted?.Invoke(true);
                     }
+
                     minZoom *= 1f;
                     maxZoom *= 1.3f;
                     finalZoom = Random.Range(minZoom, maxZoom);
@@ -86,7 +82,9 @@ public class TriggerLocations : MonoBehaviour
                     finalZoom = Random.Range(minZoom, maxZoom);
                     makeZoom = true;
                     break;
-
+                case "tomb":
+                    PlayerBehaviour.Instance.PhaseManager.WinGame();
+                    break;
             }
 
             // Actualiza el texto con el nombre del lugar

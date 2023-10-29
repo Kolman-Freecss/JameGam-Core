@@ -14,6 +14,7 @@ public class SceneTransitionHandler : MonoBehaviour
     public string DeathSceneName = "Death";
     public string OptionsSceneName = "Options";
     public string CreditsSceneName = "Credits";
+    public string WinSceneName = "Win";
     
     public enum SceneStates
     {
@@ -22,7 +23,8 @@ public class SceneTransitionHandler : MonoBehaviour
         Options,
         GameOver,
         Credits,
-        Death
+        Death,
+        Win
     }
 
     private SceneStates m_SceneState;
@@ -70,6 +72,8 @@ public class SceneTransitionHandler : MonoBehaviour
                 return SceneStates.Credits;
             case "Death":
                 return SceneStates.Death;
+            case "Win":
+                return SceneStates.Win;
             default:
                 throw new ArgumentException("No scene name found");
         }

@@ -34242,9 +34242,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1031121502}
     - target: {fileID: 7643251766993202801, guid: 8cd55af1cc752834b99e3f8988cff149, type: 3}
+<<<<<<< HEAD
+      propertyPath: rope
+      value: 
+      objectReference: {fileID: 67992548}
+=======
       propertyPath: tomb
       value: 
       objectReference: {fileID: 1317243826}
+>>>>>>> a8e8b30 (WIP WinGame)
     - target: {fileID: 7643251766993202801, guid: 8cd55af1cc752834b99e3f8988cff149, type: 3}
       propertyPath: canvasNote
       value: 
