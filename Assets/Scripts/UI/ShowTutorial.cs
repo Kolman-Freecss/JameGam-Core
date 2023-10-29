@@ -18,6 +18,9 @@ public class ShowTutorial : MonoBehaviour
     // Update is called once per frame
     private void OnTriggerExit2D(Collider2D collision)
     {
-        canvasTutorial.SetActive(false);
+        if (canvasTutorial != null)
+        {
+            canvasTutorial.SetActive(false);
+        }
     }
 }

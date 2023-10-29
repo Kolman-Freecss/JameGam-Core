@@ -20,9 +20,13 @@ public class TriggerLocations : MonoBehaviour
     #region Event Variables
 
     public event Action<bool> PhaseOneCompleted;
+    public event Action<int> OnEatKid;
 
     #endregion
 
+    void Start()
+    {
+    }
     void Update()
     {
         if (makeZoom)
@@ -38,6 +42,15 @@ public class TriggerLocations : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Trigger TriggerLocation");
+        if (collision.gameObject.CompareTag("Kid"))
+        {
+            if (collision != collision.gameObject.GetComponent<CircleCollider2D>())
+            {
+                OnEatKid?.Invoke(1);
+                Destroy(collision.gameObject);
+            }
+
+        }
         // Verifica si el objeto que colision� tiene la etiqueta "Lugar"
         if (collision.gameObject.layer == LayerMask.NameToLayer("Places"))
         {

@@ -12,9 +12,12 @@ public class CharacterInputs : MonoBehaviour
     public bool leftClick;
     public bool rightClick;
     public bool escape;
+    public bool interact;
 
     public event Action<bool> OnEscapeTrigger;
     public event Action<bool> OnRightClickTrigger;
+    
+    public event Action<bool> OnInteractTrigger;
 
     public void OnMove(InputValue value)
     {
@@ -44,6 +47,11 @@ public class CharacterInputs : MonoBehaviour
     public void OnEscape(InputValue value)
     {
         EscapeInput(value.isPressed);
+    }
+    
+    public void OnInteract(InputValue value)
+    {
+        InteractInput(value.isPressed);
     }
 
     public void MoveInput(Vector2 newMoveDirection)
@@ -76,6 +84,12 @@ public class CharacterInputs : MonoBehaviour
     {
         escape = newEscapeState;
         OnEscapeTrigger?.Invoke(escape);
+    }
+    
+    public void InteractInput(bool newInteractState)
+    {
+        interact = newInteractState;
+        OnInteractTrigger?.Invoke(interact);
     }
     
 }

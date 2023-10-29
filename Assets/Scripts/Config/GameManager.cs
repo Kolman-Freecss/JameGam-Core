@@ -1,10 +1,11 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    
+
     [SerializeField] float levelLoadDelay = 1f;
     [SerializeField] float gameWinDelay = 1f;
 
@@ -16,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-   Coroutine _coroutineGameTimer;
+    Coroutine _coroutineGameTimer;
 
     private bool isPaused;
     public bool IsPaused => isPaused;
@@ -24,23 +25,23 @@ public class GameManager : MonoBehaviour
     #region Event Variables
 
     public delegate void PauseGame(bool paused);
-    
+
     public static event PauseGame OnPauseGame;
 
     public delegate void PlayerDeath();
 
     public event PlayerDeath OnDeath;
-    
+
     public delegate void GameOver();
-    
+
     public static event GameOver OnGameOver;
 
     public delegate void WinGame();
-    
+
     public event WinGame OnWinGame;
 
     #endregion
-    
+
     #region InitData
 
     private void Awake()
@@ -62,13 +63,13 @@ public class GameManager : MonoBehaviour
         RestartGameSession();
         SubscribeToDelegatesAndUpdateValues();
     }
-    
+
     void SubscribeToDelegatesAndUpdateValues()
     {
         OnPauseGame += StopGame;
         OnGameOver += RestartGameSession;
     }
-    
+
     void UnsubscribeToDelegates()
     {
         OnPauseGame -= StopGame;
@@ -86,7 +87,7 @@ public class GameManager : MonoBehaviour
             return;
         }
     }
-    
+
     /**
      * Invoke this method when the player eat on LeashGrab.cs
      */
@@ -97,7 +98,7 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
-    
+
     #region Manage Game Session
 
     /**
@@ -118,17 +119,20 @@ public class GameManager : MonoBehaviour
     {
         Instance._coroutineGameTimer = Instance.StartCoroutine(HandleGameOver());
     }
-    
+
     public void RestartGameSession()
     {
         Instance.meatScore = 0;
         Instance.timeToDeath = 5;
         Instance.isGameOver = false;
+        Instance.isPaused = false;
+        Time.timeScale = 1;
     }
 
     public void ExitGameSession()
     {
         RestartGameSession();
+        StopHandleGameOver();
         ExitGameSessionEvent();
     }
 
@@ -136,33 +140,41 @@ public class GameManager : MonoBehaviour
     {
         Instance.StartCoroutine(LoadExitSession());
     }
-    
+
     public void StopGame(bool paused)
     {
         if (paused)
         {
             StopHandleGameOver();
-        } else
+        }
+        else
         {
             Instance._coroutineGameTimer = Instance.StartCoroutine(HandleGameOver());
         }
     }
-    
+
     public void StopHandleGameOver()
     {
-        StopCoroutine(Instance._coroutineGameTimer);
+        if (Instance._coroutineGameTimer != null)
+        {
+            StopAllCoroutines();
+            Instance.StopAllCoroutines();
+            //Instance.StopCoroutine(Instance._coroutineGameTimer);
+        }
     }
-    
+
     public void PauseGameEvent(bool paused)
     {
         Instance.isPaused = !paused;
         if (isPaused)
         {
             Time.timeScale = 0;
-        } else
+        }
+        else
         {
             Time.timeScale = 1;
         }
+
         OnPauseGame?.Invoke(isPaused);
     }
 
@@ -181,19 +193,20 @@ public class GameManager : MonoBehaviour
         SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
         RestartGameEvent();
     }
-    
+
     public void OnExitMenu()
     {
         SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
         ExitGameSession();
     }
-    
+
     public void OnCredits()
     {
         SoundManager.Instance.PlayButtonClickSound(Camera.main.transform.position);
-        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler.CreditsSceneName);
+        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler
+            .CreditsSceneName);
     }
-    
+
     /**
      * When the player dies, the game is over.
      */
@@ -204,12 +217,14 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(1);
             Instance.timeToDeath--;
         }
+
         Debug.Log("You died. Game Over.");
         isGameOver = true;
         OnDeath?.Invoke();
         yield return new WaitForSeconds(2);
-        
-        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler.DeathSceneName);   
+
+        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler
+            .DeathSceneName);
     }
 
     IEnumerator HandleWinEvent()
@@ -218,22 +233,25 @@ public class GameManager : MonoBehaviour
         Debug.Log("You win. Game Over.");
         StopHandleGameOver();
         yield return new WaitForSeconds(gameWinDelay);
-        
-        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler.WinSceneName);
+
+        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler
+            .WinSceneName);
     }
 
     IEnumerator LoadGameReset()
     {
         yield return new WaitForSecondsRealtime(levelLoadDelay);
-        
-        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler.GameSceneName);
+
+        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler
+            .GameSceneName);
     }
-    
+
     IEnumerator LoadExitSession()
     {
         yield return new WaitForSecondsRealtime(levelLoadDelay);
-        
-        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler.DefaultMainMenuSceneName);
+
+        SceneTransitionHandler.sceneTransitionHandler.SwitchScene(SceneTransitionHandler.sceneTransitionHandler
+            .DefaultMainMenuSceneName);
     }
 
     private void OnDestroy()
@@ -249,5 +267,4 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
-    
 }
