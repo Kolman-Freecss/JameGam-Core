@@ -1,9 +1,9 @@
+using System;
 using UnityEngine;
 
 public class InGameMenu : MonoBehaviour
 {
     [SerializeField] private GameObject inGameMenu;
-    [SerializeField] private GameObject canvasNote;
     
     #region InitData
 
@@ -15,16 +15,6 @@ public class InGameMenu : MonoBehaviour
 
     #endregion
 
-    public void CloseNote()
-    {
-        canvasNote.SetActive(false);
-    }
-    
-    public void OpenNote()
-    {
-        canvasNote.SetActive(true);
-    }
-    
     void OnPressEscape(bool pressed)
     {
         if (PlayerBehaviour.Instance.Inputs.escape)

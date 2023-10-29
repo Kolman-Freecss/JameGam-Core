@@ -1,9 +1,5 @@
 
-using System.Globalization;
-using System.ComponentModel;
-using System.Timers;
 using System;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utils;
@@ -31,6 +27,12 @@ public class LeashGrab : MonoBehaviour
     public Transform leashInstance;
     public Transform tieInstance;
     private Vector3 _zipPosition;
+
+    #region Event Variables
+
+    public event Action<int> OnEatKid;
+
+    #endregion
 
     private enum State
     {
@@ -64,6 +66,7 @@ public class LeashGrab : MonoBehaviour
         {
             if (Vector3.Distance(_player.transform.position, _kid.transform.position) <= 9f)
             {
+                OnEatKid?.Invoke(1);
                 Destroy(_kid);
             }
         }
@@ -245,8 +248,6 @@ public class LeashGrab : MonoBehaviour
         //Destroy(leashInstance.gameObject);
     }
     #endregion
-
-
 
     #region Getter & Setter
 
