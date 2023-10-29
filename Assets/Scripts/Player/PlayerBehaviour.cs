@@ -139,7 +139,8 @@ public class PlayerBehaviour : MonoBehaviour
         {
             return;
         }
-        if (_hasAnimator)
+        //TODO: Cuando gans y juegas otra vez, el personaje tiene destruido el animator en este punto
+        if (_hasAnimator && _animator != null)
         {
             _animator.SetTrigger(_animDeathID);
         }

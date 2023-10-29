@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.PlayerLoop;
 
 namespace Config
@@ -133,6 +134,10 @@ namespace Config
         }
 
         #endregion
-        
+
+        private void OnDestroy()
+        {
+            PlayerBehaviour.Instance.triggerLocations.PhaseOneCompleted -= StartPhase2;
+        }
     }
 }
