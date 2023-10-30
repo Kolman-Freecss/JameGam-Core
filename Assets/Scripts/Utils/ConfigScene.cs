@@ -1,79 +1,77 @@
-﻿#if UNITY_EDITOR
-using TMPro;
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.UI;
+﻿//using TMPro;
+//using UnityEditor;
+//using UnityEngine;
+//using UnityEngine.UI;
 
-namespace Config
-{
-    [ExecuteInEditMode]
-    public class ConfigScene : MonoBehaviour
-    {
-        public TMP_FontAsset newFont;
-        public Sprite backgroundButton;
+//namespace Config
+//{
+//    //[ExecuteInEditMode]
+//    public class ConfigScene : MonoBehaviour
+//    {
+//        public TMP_FontAsset newFont;
+//        public Sprite backgroundButton;
 
-        [ContextMenu("Change Fonts")]
-        void ChangeFonts()
-        {
-            TextMeshProUGUI[] textObjects = FindObjectsOfType<TextMeshProUGUI>();
+//        [ContextMenu("Change Fonts")]
+//        void ChangeFonts()
+//        {
+//            TextMeshProUGUI[] textObjects = FindObjectsOfType<TextMeshProUGUI>();
 
-            foreach (TextMeshProUGUI textObject in textObjects)
-            {
-                Undo.RecordObject(textObject, "Changed Font");
-                textObject.font = newFont;
-                textObject.color = Color.red;
-            }
-        }
+//            foreach (TextMeshProUGUI textObject in textObjects)
+//            {
+//                Undo.RecordObject(textObject, "Changed Font");
+//                textObject.font = newFont;
+//                textObject.color = Color.red;
+//            }
+//        }
         
-        [ContextMenu("Change Buttons")]
-        void ChangeButtons()
-        {
-            Button[] buttons = FindObjectsOfType<Button>();
+//        [ContextMenu("Change Buttons")]
+//        void ChangeButtons()
+//        {
+//            Button[] buttons = FindObjectsOfType<Button>();
 
-            foreach (Button button in buttons)
-            {
-                Undo.RecordObject(button, "Changed Button");
-                Image image = button.GetComponent<Image>();
-                image.sprite = backgroundButton;
-                image.color = new Color32(75, 75, 75, 255); // #4B4B4B en formato RGB
-                button.transition = Selectable.Transition.ColorTint;
-                // Make transition highlighted color the same as normal color
-                ColorBlock colors = button.colors;
-                colors.highlightedColor = new Color32(255, 0, 0, 255); // #FF0000 en formato RGB;
-                button.colors = colors;
-                button.GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
-                button.GetComponentInChildren<TextMeshProUGUI>().fontSize = 45f;
-            }
-        }
+//            foreach (Button button in buttons)
+//            {
+//                Undo.RecordObject(button, "Changed Button");
+//                Image image = button.GetComponent<Image>();
+//                image.sprite = backgroundButton;
+//                image.color = new Color32(75, 75, 75, 255); // #4B4B4B en formato RGB
+//                button.transition = Selectable.Transition.ColorTint;
+//                // Make transition highlighted color the same as normal color
+//                ColorBlock colors = button.colors;
+//                colors.highlightedColor = new Color32(255, 0, 0, 255); // #FF0000 en formato RGB;
+//                button.colors = colors;
+//                button.GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
+//                button.GetComponentInChildren<TextMeshProUGUI>().fontSize = 45f;
+//            }
+//        }
         
-        [ContextMenu("Change Toogles")]
-        void ChangeToogles()
-        {
-            Toggle[] toggles = FindObjectsOfType<Toggle>();
+//        [ContextMenu("Change Toogles")]
+//        void ChangeToogles()
+//        {
+//            Toggle[] toggles = FindObjectsOfType<Toggle>();
 
-            foreach (Toggle toggle in toggles)
-            {
-                Undo.RecordObject(toggle, "Changed Toggle");
-                ColorBlock colors = toggle.colors;
-                colors.normalColor = new Color32(236, 183, 183, 255); // #ECB7B7 en formato RGB
-                colors.highlightedColor = new Color32(255, 0, 0, 255); // #FF0000 en formato RGB;
-                toggle.colors = colors;
-            }
-        }
+//            foreach (Toggle toggle in toggles)
+//            {
+//                Undo.RecordObject(toggle, "Changed Toggle");
+//                ColorBlock colors = toggle.colors;
+//                colors.normalColor = new Color32(236, 183, 183, 255); // #ECB7B7 en formato RGB
+//                colors.highlightedColor = new Color32(255, 0, 0, 255); // #FF0000 en formato RGB;
+//                toggle.colors = colors;
+//            }
+//        }
         
-        [ContextMenu("Change Sliders")]
-        void ChangeSliders()
-        {
-            Slider[] sliders = FindObjectsOfType<Slider>();
+//        [ContextMenu("Change Sliders")]
+//        void ChangeSliders()
+//        {
+//            Slider[] sliders = FindObjectsOfType<Slider>();
             
-            foreach (Slider slider in sliders)
-            {
-                Undo.RecordObject(slider, "Changed Slider");
-                // Get Fill Area image
-                Image fillArea = slider.transform.GetChild(1).GetChild(0).GetComponent<Image>();
-                fillArea.color = new Color32(195, 99, 99, 255); // #C36363 en formato RGB
-            }
-        }
-    }
-}
-#endif
+//            foreach (Slider slider in sliders)
+//            {
+//                Undo.RecordObject(slider, "Changed Slider");
+//                // Get Fill Area image
+//                Image fillArea = slider.transform.GetChild(1).GetChild(0).GetComponent<Image>();
+//                fillArea.color = new Color32(195, 99, 99, 255); // #C36363 en formato RGB
+//            }
+//        }
+//    }
+//}

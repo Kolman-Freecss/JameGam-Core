@@ -29,6 +29,8 @@ namespace Config
         public bool noteOpened;
         public bool ropeGrabbed;
 
+        [SerializeField] GameObject pepe;
+
         #endregion
 
         #region LastPhase Variables
@@ -41,14 +43,15 @@ namespace Config
 
         private void Awake()
         {
-            noteOpened = false;
-            CloseDoor();
+
         }
         
         private void Start()
         {
-            Init();
+            noteOpened = false;
+            CloseDoor();
             SubscribeToDelegatesAndUpdateValues();
+            Init();
         }
 
         private void Init()
@@ -62,7 +65,8 @@ namespace Config
         
         private void SubscribeToDelegatesAndUpdateValues()
         {
-            PlayerBehaviour.Instance.triggerLocations.PhaseOneCompleted += StartPhase2;
+            pepe.GetComponent<TriggerLocations>().PhaseOneCompleted += StartPhase2;
+            //PlayerBehaviour.Instance.triggerLocations.PhaseOneCompleted += StartPhase2;
         }
 
         #endregion
@@ -125,7 +129,8 @@ namespace Config
                 phase1Completed = true;
                 if (DisplaySettings.Instance.blood)
                 {
-                    PlayerBehaviour.Instance.bleeding.StartBleed();
+                    pepe.GetComponent<Bleeding>().StartBleed();
+                  // PlayerBehaviour.Instance.bleeding.StartBleed();
                 }
                 GameManager.Instance.InitHandleGameOver();
             }
@@ -147,7 +152,8 @@ namespace Config
 
         private void OnDestroy()
         {
-            PlayerBehaviour.Instance.triggerLocations.PhaseOneCompleted -= StartPhase2;
+            pepe.GetComponent<TriggerLocations>().PhaseOneCompleted -= StartPhase2;
+            //PlayerBehaviour.Instance.triggerLocations.PhaseOneCompleted -= StartPhase2;
         }
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.2566901, g: 0.23532435, b: 0.17947632, a: 1}
+  m_IndirectSpecularColor: {r: 0.25669003, g: 0.23532435, b: 0.17947623, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -20329,8 +20329,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 283764cfb54db8e40a353ca9d023bfa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rope: {fileID: 704182631}
-  takepanel: {fileID: 0}
 --- !u!1001 &1273245021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35382,6 +35380,10 @@ PrefabInstance:
       propertyPath: door
       value: 
       objectReference: {fileID: 1031121502}
+    - target: {fileID: 7643251766993202801, guid: 8cd55af1cc752834b99e3f8988cff149, type: 3}
+      propertyPath: pepe
+      value: 
+      objectReference: {fileID: 67992548}
     - target: {fileID: 7643251766993202801, guid: 8cd55af1cc752834b99e3f8988cff149, type: 3}
       propertyPath: rope
       value: 
